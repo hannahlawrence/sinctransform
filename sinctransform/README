@@ -6,7 +6,7 @@ A package for computing the sinc and sinc-squared transforms (as described by [1
 
 1. Install the finufft library (https://github.com/ahbarnett/finufft)
 2. Download contents of sinctransform package 
-3. In the makefile, change CURRENT to the folder containing the library: CURRENT = /some/path/to/dir
+3. In the makefile, change CURRENT to the folder containing the library: CURRENT = /some/path/to/sinctransform
 4. In the makefile, change FINUFFT to the path to finufft: FINUFFT = /some/path/to/finufft
 
 
