@@ -1,4 +1,4 @@
----Description---
+# Description
 
 A C++ package for computing the sinc and sinc-squared transforms (as described by [1] in Citations) in 1, 2, and 3 dimensions. (See individual files for more detailed documentation)
 
