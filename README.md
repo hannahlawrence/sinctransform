@@ -15,16 +15,19 @@ To run examples or tests:
 
 To use in other programs, following the example code: 
 	"make libsinc.a", then compile with both sinctransform and finufft static libraries, eg:
-	g++ -std=c++11 -Wall -g -o myprogram myprogram.cpp libsinc.a /some/path/to/finufft/lib/libfinufft.a -lfftw3 -lm
+	```
+g++ -std=c++11 -Wall -g -o myprogram myprogram.cpp libsinc.a /some/path/to/finufft/lib/libfinufft.a -lfftw3 -lm
+```
 
 # Contents
 
 The sinc and sinc-squared transform of specified dimension:
+```
 	sinc1d.cpp
 	sinc2d.cpp
 	sinc3d.cpp
 	sinctransform.hpp
-
+```
 To compute the sinc transform directly:
 	directsinc.cpp
 	directsinc.hpp
