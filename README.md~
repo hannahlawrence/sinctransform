@@ -2,7 +2,7 @@
 
 A C++ package for computing the sinc and sinc-squared transforms (as described by [1] in Citations) in 1, 2, and 3 dimensions. (See individual files for more detailed documentation)
 
-# Installation
+---Installation---
 
 1. Install the finufft library (https://github.com/ahbarnett/finufft)
 2. Download contents of sinctransform package 
@@ -17,7 +17,7 @@ To use in other programs, following the example code:
 	"make libsinc.a", then compile with both sinctransform and finufft static libraries, eg:
 	g++ -std=c++11 -Wall -g -o myprogram myprogram.cpp libsinc.a /some/path/to/finufft/lib/libfinufft.a -lfftw3 -lm
 
-# Contents
+---Contents---
 
 The sinc and sinc-squared transform of specified dimension:
 	sinc1d.cpp
@@ -47,7 +47,7 @@ Accuracy testing at precision range for specified dimension:
 	test2d.cpp
 	test3d.cpp
 
-# Citations
+---Citations---
 
 Sinc transform:
 
