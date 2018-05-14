@@ -22,11 +22,12 @@ g++ -std=c++11 -Wall -g -o myprogram myprogram.cpp libsinc.a /some/path/to/finuf
 # Contents
 
 The sinc and sinc-squared transform of specified dimension:
+```
 	sinc1d.cpp
 	sinc2d.cpp
 	sinc3d.cpp
 	sinctransform.hpp
-
+```
 To compute the sinc transform directly:
 	directsinc.cpp
 	directsinc.hpp
