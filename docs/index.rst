@@ -13,7 +13,6 @@ Fast Sinc Transform Documentation
    Overview
    PackageContents
    Installation
-   FunctionCalls
    Examples
    Tests
    Derivation

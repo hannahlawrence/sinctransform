@@ -10,4 +10,3 @@ To run:
 	make tests/test2d    
 	tests/test2d 
 
-(include some results?)
