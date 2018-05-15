@@ -20,7 +20,7 @@ Fast Sinc Transform Documentation
    ReconApplication
    Matlab
    Notes
-   Citations
+   Citations 
 
 What if I type something here?
 Here's an equation (inline): :math:`a \ne 0`

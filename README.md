@@ -17,7 +17,7 @@ A C++ package for computing the sinc and sinc-squared transforms (as described b
 ### Example and Test Programs
 To run one of the simple example programs:
 ```
-make examples/example1d      .
+make examples/example1d     
 examples/example1d           
 ```
 To run one of the existing time and performance tests:  
