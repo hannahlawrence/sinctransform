@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to sinctransform's documentation!
+Fast Sinc Transform Documentation
 =========================================
 
 .. toctree::
@@ -18,15 +18,8 @@ Welcome to sinctransform's documentation!
    Tests
    Derivation
    ReconApplication
+   Matlab
    Citations
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
 
 What if I type something here?
 Here's an equation: $a \ne 0$
