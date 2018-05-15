@@ -17,13 +17,13 @@ A C++ package for computing the sinc and sinc-squared transforms (as described b
 ### Example and Test Programs
 To run one of the simple example programs:
 ```
-make examples/example1d      .cpp
-./example1d           .cpp
+make examples/example1d      .
+examples/example1d           
 ```
 To run one of the existing time and performance tests:  
 ```
-make tests/test1d        .cpp
-./test1d           .cpp
+make tests/test1d        
+tests/test1d           
 ```
 
 To use in other programs, following the example code: 
@@ -34,6 +34,7 @@ then compile with both sinctransform and finufft static libraries, e.g.:
 ```
 g++ -std=c++11 -Wall -g -o myprogram myprogram.cpp libsinc.a /some/path/to/finufft/lib/libfinufft.a -lfftw3 -lm
 ```
+It may be necessary to include a flag telling the compiler where to find the FFTW library, which is a prerequisite for the finufft library. To do so, add the flag "-L/some/dir" such that /some/dir contains the static FFTW library (.a file).
 
 # Contents
 
@@ -76,6 +77,17 @@ Accuracy testing at precision range for specified dimension:
 test1d.cpp
 test2d.cpp
 test3d.cpp
+```
+
+
+Matlab code (not wrappers) for sinc transform:
+```
+sinc1d.m
+sinc2d.m
+sinc3d.m
+sincsq1d.m
+sincsq2d.m
+sincsq3d.m
 ```
 
 # Citations

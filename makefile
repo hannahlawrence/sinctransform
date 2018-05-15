@@ -4,8 +4,8 @@
 CXX=g++
 CURRENT=/Users/hannah/Documents/Flatiron18/sinctransform
 CURRENT_FLAG=-I$(CURRENT)
-FFTW_DIR=/usr/local/lib
-FFTW_FLAG=-L$(FFTW_DIR)
+FFTW=/usr/local/lib
+FFTW_FLAG=-L$(FFTW)
 FINUFFT=/Users/hannah/Documents/Summer2017/Flatiron/fi2/finufft
 FINUFFT_LIB_PATH=/lib/libfinufft.a
 FINUFFT_LIB=$(FINUFFT)$(FINUFFT_LIB_PATH)
