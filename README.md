@@ -17,13 +17,13 @@ A C++ package for computing the sinc and sinc-squared transforms (as described b
 ### Example and Test Programs
 To run one of the simple example programs:
 ```
-make examples/example1d.cpp
-./example1d.cpp
+make examples/example1d      .cpp
+./example1d           .cpp
 ```
 To run one of the existing time and performance tests:  
 ```
-make tests/test1d.cpp
-./test1d.cpp
+make tests/test1d        .cpp
+./test1d           .cpp
 ```
 
 To use in other programs, following the example code: 

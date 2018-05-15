@@ -19,6 +19,7 @@ Fast Sinc Transform Documentation
    Derivation
    ReconApplication
    Matlab
+   Notes
    Citations
 
 What if I type something here?
@@ -30,3 +31,13 @@ A line of its own (note newline after is necessary!):
 .. math::
 
    2^3 \sum_{n=2}^3 n^{10} 8 
+
+
+Let's try some code.
+
+.. code:: C
+   int x=10;
+   int *y=malloc(sizeof(int)*10);
+
+All done.
+   

@@ -2,8 +2,10 @@
 # Makefile for sinc transform programs
 
 CXX=g++
-CURRENT=/Users/hannah/Documents/Summer2017/Flatiron/sinctransform
+CURRENT=/Users/hannah/Documents/Flatiron18/sinctransform
 CURRENT_FLAG=-I$(CURRENT)
+FFTW_DIR=/usr/local/lib
+FFTW_FLAG=-L$(FFTW_DIR)
 FINUFFT=/Users/hannah/Documents/Summer2017/Flatiron/fi2/finufft
 FINUFFT_LIB_PATH=/lib/libfinufft.a
 FINUFFT_LIB=$(FINUFFT)$(FINUFFT_LIB_PATH)
@@ -44,23 +46,23 @@ $(HELPER_DIR)/directsinc.o: $(HELPER_DIR)/directsinc.cpp $(HELPER_DIR)/sincutil.
 
 # Simple examples of usage in 1d, 2d, 3d
 $(EXAMPLE_DIR)/example1d: libsinc.a $(HELPER_DIR)/sincutil.o $(EXAMPLE_DIR)/example1d.cpp
-	$(CXX) $(FLAGS) -o $(EXAMPLE_DIR)/example1d $(HELPER_DIR)/sincutil.o $(EXAMPLE_DIR)/example1d.cpp libsinc.a $(CURRENT_FLAG)/$(HELPER_DIR) $(CURRENT_FLAG)/$(SOURCE_DIR) $(FINUFFT_LIB) $(FINUFFT_FLAGS)
+	$(CXX) $(FLAGS) -o $(EXAMPLE_DIR)/example1d $(HELPER_DIR)/sincutil.o $(EXAMPLE_DIR)/example1d.cpp libsinc.a $(CURRENT_FLAG)/$(HELPER_DIR) $(CURRENT_FLAG)/$(SOURCE_DIR) $(FINUFFT_LIB) $(FFTW_FLAG) $(FINUFFT_FLAGS)
 
 $(EXAMPLE_DIR)/example2d: libsinc.a $(HELPER_DIR)/sincutil.o $(EXAMPLE_DIR)/example2d.cpp
-	$(CXX) $(FLAGS) -o $(EXAMPLE_DIR)/example2d $(HELPER_DIR)/sincutil.o $(EXAMPLE_DIR)/example2d.cpp libsinc.a $(CURRENT_FLAG)/$(HELPER_DIR) $(CURRENT_FLAG)/$(SOURCE_DIR) $(FINUFFT_LIB) $(FINUFFT_FLAGS)
+	$(CXX) $(FLAGS) -o $(EXAMPLE_DIR)/example2d $(HELPER_DIR)/sincutil.o $(EXAMPLE_DIR)/example2d.cpp libsinc.a $(CURRENT_FLAG)/$(HELPER_DIR) $(CURRENT_FLAG)/$(SOURCE_DIR) $(FINUFFT_LIB) $(FFTW_FLAG) $(FINUFFT_FLAGS)
 
 $(EXAMPLE_DIR)/example3d: libsinc.a $(HELPER_DIR)/sincutil.o $(EXAMPLE_DIR)/example3d.cpp
-	$(CXX) $(FLAGS) -o $(EXAMPLE_DIR)/example3d $(HELPER_DIR)/sincutil.o $(EXAMPLE_DIR)/example3d.cpp libsinc.a $(CURRENT_FLAG)/$(HELPER_DIR) $(CURRENT_FLAG)/$(SOURCE_DIR) $(FINUFFT_LIB) $(FINUFFT_FLAGS)
+	$(CXX) $(FLAGS) -o $(EXAMPLE_DIR)/example3d $(HELPER_DIR)/sincutil.o $(EXAMPLE_DIR)/example3d.cpp libsinc.a $(CURRENT_FLAG)/$(HELPER_DIR) $(CURRENT_FLAG)/$(SOURCE_DIR) $(FINUFFT_LIB) $(FFTW_FLAG) $(FINUFFT_FLAGS)
 
 # Longer test functions using random inputs, over many requested precisions
 $(TEST_DIR)/test1d: libsinc.a $(HELPER_DIR)/sincutil.o $(HELPER_DIR)/directsinc.o $(TEST_DIR)/test1d.cpp 
-	$(CXX) $(FLAGS) -o $(TEST_DIR)/test1d $(HELPER_DIR)/sincutil.o $(HELPER_DIR)/directsinc.o $(TEST_DIR)/test1d.cpp libsinc.a $(CURRENT_FLAG)/$(HELPER_DIR) $(CURRENT_FLAG)/$(SOURCE_DIR) $(FINUFFT_LIB) $(FINUFFT_FLAGS)
+	$(CXX) $(FLAGS) -o $(TEST_DIR)/test1d $(HELPER_DIR)/sincutil.o $(HELPER_DIR)/directsinc.o $(TEST_DIR)/test1d.cpp libsinc.a $(CURRENT_FLAG)/$(HELPER_DIR) $(CURRENT_FLAG)/$(SOURCE_DIR) $(FINUFFT_LIB) $(FFTW_FLAG) $(FINUFFT_FLAGS)
 
 $(TEST_DIR)/test2d: libsinc.a $(HELPER_DIR)/sincutil.o $(HELPER_DIR)/directsinc.o $(TEST_DIR)/test2d.cpp 
-	$(CXX) $(FLAGS) -o $(TEST_DIR)/test2d $(HELPER_DIR)/sincutil.o $(HELPER_DIR)/directsinc.o $(TEST_DIR)/test2d.cpp libsinc.a $(CURRENT_FLAG)/$(HELPER_DIR) $(CURRENT_FLAG)/$(SOURCE_DIR) $(FINUFFT_LIB) $(FINUFFT_FLAGS)
+	$(CXX) $(FLAGS) -o $(TEST_DIR)/test2d $(HELPER_DIR)/sincutil.o $(HELPER_DIR)/directsinc.o $(TEST_DIR)/test2d.cpp libsinc.a $(CURRENT_FLAG)/$(HELPER_DIR) $(CURRENT_FLAG)/$(SOURCE_DIR) $(FINUFFT_LIB) $(FFTW_FLAG) $(FINUFFT_FLAGS)
 
 $(TEST_DIR)/test3d: libsinc.a $(HELPER_DIR)/sincutil.o $(HELPER_DIR)/directsinc.o $(TEST_DIR)/test3d.cpp 
-	$(CXX) $(FLAGS) -o $(TEST_DIR)/test3d $(HELPER_DIR)/sincutil.o $(HELPER_DIR)/directsinc.o $(TEST_DIR)/test3d.cpp libsinc.a $(CURRENT_FLAG)/$(HELPER_DIR) $(CURRENT_FLAG)/$(SOURCE_DIR) $(FINUFFT_LIB) $(FINUFFT_FLAGS)
+	$(CXX) $(FLAGS) -o $(TEST_DIR)/test3d $(HELPER_DIR)/sincutil.o $(HELPER_DIR)/directsinc.o $(TEST_DIR)/test3d.cpp libsinc.a $(CURRENT_FLAG)/$(HELPER_DIR) $(CURRENT_FLAG)/$(SOURCE_DIR) $(FINUFFT_LIB) $(FFTW_FLAG) $(FINUFFT_FLAGS)
 
 clean:
 	rm -f $(SOURCE_DIR)/sinc*.o $(HELPER_DIR)/fastgl.o libsinc.a $(HELPER_DIR)/directsinc.o $(HELPER_DIR)/sincutil.o $(EXAMPLE_DIR)/example*d $(TEST_DIR)/test*d
