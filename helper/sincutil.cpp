@@ -33,7 +33,7 @@ void printarr_cdouble(complex<double>* arr,int len) // Print a complex double ar
 	cout<<"\n";
 }
 
-double geterr(double* x, double* y, int n) // Calculate sqrt(x[1]-y[1])^2 + (x[2]-y[2])^2 + ... + (x[n]-y[n])^2)
+double geterr(double* x, double* y, int n) // Calculate sqrt((x[1]-y[1])^2 + (x[2]-y[2])^2 + ... + (x[n]-y[n])^2)
 {
 	double err=0;
 	for(int a=0;a<n;a++)
