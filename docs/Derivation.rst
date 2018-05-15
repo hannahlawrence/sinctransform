@@ -8,12 +8,12 @@ Conventions
 
 ..  math::
 
-	\mathcal{F}(h(\bm{x}))(\bm{f})=\int_{-\infty}^{\infty}h(\bm{x})e^{-2\pi i\bm{x}\bm{f}}dx
-	\mathcal{F}^{-1}(H(\bm{f}))(\bm{x})=\int_{-\infty}^{\infty}H(\bm{f})e^{2\pi i\bm{x}\bm{f}}df
+	\mathcal{F}(h(\mathbf{x}))(\mathbf{f})=\int_{-\infty}^{\infty}h(\mathbf{x})e^{-2\pi i\mathbf{x}\mathbf{f}}dx \newline
+	\mathcal{F}^{-1}(H(\mathbf{f}))(\mathbf{x})=\int_{-\infty}^{\infty}H(\mathbf{f})e^{2\pi i\mathbf{x}\mathbf{f}}df
 	\text{sinc}(x)=\frac{\sin(x)}{x}
-	text{sinc}(\bm{x})=\text{sinc}(x_1)\text{sinc}(x_2)\text{sinc}(x_3)
+	text{sinc}(\mathbf{x})=\text{sinc}(x_1)\text{sinc}(x_2)\text{sinc}(x_3)
 
-	
+
 
 Transform Pairs
 ----------------
