@@ -40,9 +40,11 @@ release = '1.0'
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
-    'sphinx.ext.mathjax',
-    'texext'
+    'sphinx.ext.mathjax'
 ]
+
+# mathjax_path="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"
+# note: above not in default?
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

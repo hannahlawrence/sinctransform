@@ -22,5 +22,11 @@ Fast Sinc Transform Documentation
    Citations
 
 What if I type something here?
-Here's an equation: $a \ne 0$
-Darn...
+Here's an equation (inline): :math:`a \ne 0`
+
+
+A line of its own (note newline after is necessary!):
+
+.. math::
+
+   2^3 \sum_{n=2}^3 n^{10} 8 
