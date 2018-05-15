@@ -16,7 +16,7 @@ Conventions
 
 	\text{sinc}(\mathbf{x})=\text{sinc}(x_1)\text{sinc}(x_2)\text{sinc}(x_3)
 
-Note about sinc convention?
+Note that sometimes :math:`\text{sinc}(x)` is defined as :math:`\frac{\sin(\pi x)}{\pi x}`. The derivation below is the same, with some minor alterations to constants. This option is included in the code, as the ifl flag.
 
 Use of Convolution
 --------------------
@@ -162,7 +162,7 @@ The following basic fact about convolution, combined with the previous section, 
 
 Implementation
 ---------------
-Putting together the previous sections
+Putting together the previous sections:
 
 .. math::
 
