@@ -2,6 +2,7 @@ Package Contents
 =========================================
 
 The sinc and sinc-squared transform of specified dimension:
+
 .. code::
 
 	sinc1d.cpp
@@ -10,6 +11,7 @@ The sinc and sinc-squared transform of specified dimension:
 	sinctransform.hpp
 
 To compute the sinc transform directly:
+
 .. code::
 
 	directsinc.cpp
@@ -17,6 +19,7 @@ To compute the sinc transform directly:
 
 
 Programs used in directsinc.cpp, as well as all example and testing code, to print arrays, generate random arrays, etc:
+
 .. code::
 
 	sincutil.cpp
@@ -24,12 +27,14 @@ Programs used in directsinc.cpp, as well as all example and testing code, to pri
 
 
 For computing Gauss-Legendre quadrature weights (see [2] in citations):
+
 .. code::
 
 	fastGL.cpp
 	fastGL.hpp
 
 Simple usage examples for specified dimension:
+
 .. code::
 	
 	example1d.cpp
@@ -37,6 +42,7 @@ Simple usage examples for specified dimension:
 	example3d.cpp
 
 Accuracy testing at precision range for specified dimension:
+
 .. code::
 
 	test1d.cpp
@@ -44,6 +50,7 @@ Accuracy testing at precision range for specified dimension:
 	test3d.cpp
 
 Matlab code (not C++ wrappers) for sinc transform:
+
 .. code::
 
 	sinc1d.m
