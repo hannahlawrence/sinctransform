@@ -25,21 +25,24 @@ Configuration
 
 .. code::
 
-	FFTW = /some/path/to/fft (Note: on a Mac, this may be /usr/local/lib)
+	FFTW = /some/path/to/fft 
+
+(Note: on a Mac, this may be /usr/local/lib)
 
 Usage
 ----------------
 
 To use in other programs, begin by creating the static library:
+
 .. code::
 
 	make libsinc.a
 
-Then compile with both the sinctransform and finufft static libraries, e.g.:
+Then compile with both the sinctransform and finufft static libraries, e.g.
 
 .. code::
 
-	g++ -std=c++11 -Wall -g -o myprogram myprogram.cpp /some/path/to/libsinc.a /some/path/to/finufft/lib/libfinufft.a -lfftw3 -lm
+	g++ -std=c++11 -Wall -g -o myprog myprog.cpp /path/to/libsinc.a /path/to/finufft/lib/libfinufft.a -lfftw3 -lm
 
 It may be necessary to include a flag telling the compiler where to find the FFTW library, which is a prerequisite for the finufft library. To do so, add the flag "-L/some/dir" such that /some/dir contains the static FFTW library (.a file).
 

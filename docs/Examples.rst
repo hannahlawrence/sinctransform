@@ -1,7 +1,7 @@
 Example Programs
 =========================================
 
-Simple usage examples in 1D, 2D, and 3D are contained within the examples directory. To run:
+Some very simple usage examples in 1D, 2D, and 3D are contained within the examples directory. To run:
 
 .. code::
 	
