@@ -87,6 +87,9 @@ Using the symmetry of Fourier transform, i.e. :math:`\mathcal{F}(h(x))(f)=h(-f)`
 
 Then :math:`h(x)` with :math:`a=\frac{1}{2\pi}` and :math:`b=\pi` is equal to :math:`\mathcal{F}(\text{sinc}(x))(f)`
 
+.. image:: basicfsincplot.png
+    :width: 45%
+
 2D
 ~~~~~
 Again, let 
@@ -140,6 +143,9 @@ The following basic fact about convolution, combined with the previous section, 
 
 	0 \: \: \: \: |x| > \frac{1}{\pi}
 
+
+.. image:: basicfsincsqplot.png
+    :width: 45%
 
 2D
 ~~~~~
