@@ -5,15 +5,15 @@ Recall the objective is to compute
 
 .. math::
 
-	\sum_{j=1}^m}q_j\text{sinc}(\mathbf{k_i}-\mathbf{k_j})
+	\sum_{j=1}^m q_j\text{sinc}(\mathbf{k_i}-\mathbf{k_j})
 
-	\sum_{j=1}^m}q_j\text{sinc}^2(\mathbf{k_i}-\mathbf{k_j})
+	\sum_{j=1}^m q_j\text{sinc}^2(\mathbf{k_i}-\mathbf{k_j})
 
 Also, the finufft library can quickly compute expressions of the form
 
 .. math::
 
-	\sum_{j=1}^m}f(x_j)e^{\pm i x_j k_r}
+	\sum_{j=1}^m f(x_j)e^{\pm i x_j k_r}
 
 where the points :math:`x_j` and :math:`k_r` may be arbitrarily spaced.
 

@@ -5,9 +5,9 @@ This is a C++ package to compute the sinc and sinc-squared transforms, defined a
 
 .. math::
 
-	\sum_{j=1}^m}q_j\text{sinc}(\mathbf{k_i}-\mathbf{k_j})
+	\sum_{j=1}^m q_j\text{sinc}(\mathbf{k_i}-\mathbf{k_j})
 
-	\sum_{j=1}^m}q_j\text{sinc}^2(\mathbf{k_i}-\mathbf{k_j})
+	\sum_{j=1}^m q_j\text{sinc}^2(\mathbf{k_i}-\mathbf{k_j})
 
 where we define
 
