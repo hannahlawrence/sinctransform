@@ -178,7 +178,7 @@ Putting together the previous sections:
 
 	= \frac{1}{2}\int_{-1}^{1}\Big(\sum_{j=1}^{m}q_je^{-ik_jy}\Big)e^{iyk_i}dy
 
-In 2 and 3 dimensions, the constant :math:`\frac{1}{2}` changes to :math:`\frac{1}{4}` and :math:`\frac{1}{8}`, respectively.
+In 2 and 3 dimensions, the constant :math:`\frac{1}{2}` changes to :math:`\frac{1}{4}` and :math:`\frac{1}{8}`, respectively, and integration is multidimensional with the same bounds.
 
 .. math::
 	
@@ -188,7 +188,7 @@ In 2 and 3 dimensions, the constant :math:`\frac{1}{2}` changes to :math:`\frac{
 
 	=\frac{1}{4}\int_{-2}^{2}(2-|y|)\Big(\sum_{j=1}^{m}q_je^{-ik_jy}\Big)e^{iyk_i}dy
 
-Again, in 2 and 3 dimensions, the constant :math:`\frac{1}{4}` changes to :math:`\frac{1}{8}` and :math:`\frac{1}{16}`, respectively.
+Again, in 2 and 3 dimensions, the constant :math:`\frac{1}{4}` changes to :math:`\frac{1}{8}` and :math:`\frac{1}{16}`, respectively, and integration is multidimensional.
 
 In each case, there are two main tasks: computing the inner summation, and computing the outer (possibly multidimensional) integral. But the inner summation is exactly a discrete (nonuniform) Fourier transform, and is computed with the finufft library. The outer integral again takes the form of of a Fourier transform (in the other direction), but since we want the exact integral, Legendre-Gauss quadrature weights are used to weight the integrand before again applying the finufft library. Note that in the case of :math:`\text{sinc}^2`, the integrand is only piecewise continuous, so the quadrature points are treated accordingly.
 
