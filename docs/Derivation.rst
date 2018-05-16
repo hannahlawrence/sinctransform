@@ -3,7 +3,7 @@ Mathematical Derivation
 
 Recall the objective is to compute 
 
-.. math:
+.. math::
 
 	\sum_{j=1}^m}q_j\text{sinc}(\mathbf{k_i}-\mathbf{k_j})
 
@@ -11,11 +11,11 @@ Recall the objective is to compute
 
 Also, the finufft library can quickly compute expressions of the form
 
-.. math:
+.. math::
 
 	\sum_{j=1}^m}f(x_j)e^{\pm i x_j k_r}
 
-where the points :math:`x_j' and :math:`k_r' may be arbitrarily spaced.
+where the points :math:`x_j` and :math:`k_r` may be arbitrarily spaced.
 
 Conventions
 -------------
