@@ -5,9 +5,9 @@ Recall the objective is to compute
 
 .. math:
 
-	\sum_{j=1}^m}q_j\text{sinc}(\bm{k_i}-\bm{k_j})
+	\sum_{j=1}^m}q_j\text{sinc}(\mathbf{k_i}-\mathbf{k_j})
 
-	\sum_{j=1}^m}q_j\text{sinc}^2(\bm{k_i}-\bm{k_j})
+	\sum_{j=1}^m}q_j\text{sinc}^2(\mathbf{k_i}-\mathbf{k_j})
 
 Also, the finufft library can quickly compute expressions of the form
 
