@@ -1,7 +1,21 @@
 Mathematical Derivation
 =========================================
 
-(Some stuff here: reminder of the objective)
+Recall the objective is to compute 
+
+.. math:
+
+	\sum_{j=1}^m}q_j\text{sinc}(\bm{k_i}-\bm{k_j})
+
+	\sum_{j=1}^m}q_j\text{sinc}^2(\bm{k_i}-\bm{k_j})
+
+Also, the finufft library can quickly compute expressions of the form
+
+.. math:
+
+	\sum_{j=1}^m}f(x_j)e^{\pm i x_j k_r}
+
+where the points :math:`x_j' and :math:`k_r' may be arbitrarily spaced.
 
 Conventions
 -------------
@@ -29,9 +43,11 @@ Define
 
 :math:`f` may look like this (noting that the y-axis denotes area):
 
-.. image:: basicfplot.png
+.. figure:: basicfplot.png
     :width: 70%
     :align: center
+
+    One example of :math:`f`, a sum of impulse functions with areas dictated by :math:`q_j`
 
 .. math::
 
@@ -93,7 +109,7 @@ Using the symmetry of Fourier transform, i.e. :math:`\mathcal{F}(h(x))(f)=h(-f)`
 
 	\mathcal{F}(H(x))(f)=\mathcal{F}(2ab\text{sinc}(2\pi ax))(f)=h(x)
 
-Then :math:`h(x)` with :math:`a=\frac{1}{2\pi}` and :math:`b=\pi` is equal to :math:`\mathcal{F}(\text{sinc}(x))(f)`
+Then :math:`h(x)` with :math:`a=\frac{1}{2\pi}` and :math:`b=\pi` is equal to :math:`\mathcal{F}(\text{sinc}(x))(f)`, as shown below.
 
 .. image:: basicfsincplot.png
     :width: 70%
@@ -153,9 +169,11 @@ The following basic fact about convolution, combined with the previous section, 
 	0 \: \: \: \: |x| > \frac{1}{\pi}
 
 
-.. image:: basicfsincsqplot.png
+.. figure:: basicfsincsqplot.png
     :width: 70%
     :align: center
+
+    The Fourier transform of sinc-squared in 1D.
 
 2D
 ~~~~~
