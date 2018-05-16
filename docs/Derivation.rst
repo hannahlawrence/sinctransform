@@ -41,13 +41,11 @@ Define
 
 	f(\mathbf{k})=\sum_{j=1}^{m}\delta(\mathbf{k}-\mathbf{k_j})q_j
 
-:math:`f` may look like this (noting that the y-axis denotes area):
-
 .. figure:: basicfplot.png
     :width: 70%
     :align: center
 
-    One example of :math:`f`, a sum of impulse functions with areas dictated by :math:`q_j`
+    One example of :math:`f`, where the y-axis measures area
 
 .. math::
 
@@ -111,9 +109,11 @@ Using the symmetry of Fourier transform, i.e. :math:`\mathcal{F}(h(x))(f)=h(-f)`
 
 Then :math:`h(x)` with :math:`a=\frac{1}{2\pi}` and :math:`b=\pi` is equal to :math:`\mathcal{F}(\text{sinc}(x))(f)`, as shown below.
 
-.. image:: basicfsincplot.png
+.. figure:: basicfsincplot.png
     :width: 70%
     :align: center
+
+    The Fourier transform of sinc in 1D.
 
 2D
 ~~~~~
