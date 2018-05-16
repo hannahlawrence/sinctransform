@@ -16,7 +16,7 @@ where we define
 	
 	\text{sinc}(\mathbf{x})=\prod_{i=1}^r \frac{\text{sin}(x_i)}{x_i} \: \: \: \mathbf{x} \in \mathbf{R}^r
 
-
+It relies on the finufft library to efficiently compute the nonuniform Fourier transform, and contains separate C++ code for 1, 2, and 3 dimensions. For completeness, there is also some Matlab code to perform the same functions. It is slightly slower and not necessarily well-documented, but may be easier to understand.
 
 .. figure:: SincGraphBasic.png
     :width: 70%
@@ -29,3 +29,4 @@ where we define
     :align: center
 
     The sinc function in 2d
+
