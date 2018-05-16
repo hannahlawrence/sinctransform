@@ -17,10 +17,14 @@ where we define
 
 Format these so that they're next to each other
 
-.. image:: SincGraphBasic.png
+.. figure:: SincGraphBasic.png
     :width: 70%
     :align: center
 
-.. image:: basicsincsqplot.png
+    The sinc function in 1D
+
+.. figure:: basicsincsqplot.png
     :width: 70%
     :align: center
+
+    The sinc function in 2d
