@@ -27,6 +27,14 @@ Define
 
 	f(\mathbf{k})=\sum_{j=1}^{m}\delta(\mathbf{k}-\mathbf{k_j})q_j
 
+:math:`f` may look like this (noting that the y-axis denotes area):
+
+.. image:: basicfplot.png
+    :width: 70%
+    :align: center
+
+.. math::
+
 	\mathcal{F}(f(\mathbf{k}))=\int_{-\infty}^{\infty}\sum_{j=1}^{m}\delta(\mathbf{k}-\mathbf{k_j})q_je^{-2\pi i\mathbf{k}\mathbf{x}}d\mathbf{k}=\sum_{j=1}^{m}q_je^{-2\pi i\mathbf{k_j}\mathbf{x}}
 
 Then
@@ -88,7 +96,8 @@ Using the symmetry of Fourier transform, i.e. :math:`\mathcal{F}(h(x))(f)=h(-f)`
 Then :math:`h(x)` with :math:`a=\frac{1}{2\pi}` and :math:`b=\pi` is equal to :math:`\mathcal{F}(\text{sinc}(x))(f)`
 
 .. image:: basicfsincplot.png
-    :width: 45%
+    :width: 70%
+    :align: center
 
 2D
 ~~~~~
@@ -145,7 +154,8 @@ The following basic fact about convolution, combined with the previous section, 
 
 
 .. image:: basicfsincsqplot.png
-    :width: 45%
+    :width: 70%
+    :align: center
 
 2D
 ~~~~~

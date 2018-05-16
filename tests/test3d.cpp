@@ -42,9 +42,9 @@ int main()
 		s_err=sinc3d(ifl,numlocs,klocs_d1,klocs_d2,klocs_d3,q,pr,myout); 
 		cout<<"Runtime: "<<setprecision(6)<<(clock()-start)/(double) CLOCKS_PER_SEC<<" sec. ";
 
-		err=geterr(myout,corr,numlocs);
+		err=geterr(myout,corr,numlocs); //PUT BACK
 		cout<<"Requested precision: "<<pr<<" "; // Requested precision
-		cout<<"Error: "<<err<<"\n"; // Error compared to direct calculation
+		cout<<"Error: "<<err<<"\n"; // Error compared to direct calculation 
 		free(myout);
 			
 	}
@@ -56,7 +56,6 @@ int main()
 	start=clock();
 	directsincsq3d(ifl,numlocs,klocs_d1,klocs_d2,klocs_d3,q,corr,1e-14); 
 	cout<<"Direct calculation: "<<setprecision(6)<<(clock()-start)/(double) CLOCKS_PER_SEC<<" sec. \n";
-
 
 	for(int a=0;a<14;a++)
 	{
