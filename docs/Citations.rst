@@ -1,4 +1,4 @@
-Citations and License
+Citations and Licenses
 =========================================
 
 Sinc transform:
