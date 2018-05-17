@@ -4,4 +4,4 @@ A C++ package for computing the fast sinc and sinc-squared transforms in 1, 2, a
 
 <img src="docs/eqns.png" width="350"/>
 
-Please see the documentation [here](http://fast-sinc-transform.readthedocs.io/en/latest/) for installation instructions, where to find example code, derivations, licenses, etc. Note also that this code crucially requires the [FINUFFT](https://github.com/ahbarnett/finufft) library. Also, matlab codes (following the same algorithm) are included as well for convenience.
+Please see the primary documentation [here](http://fast-sinc-transform.readthedocs.io/en/latest/) for installation instructions, example code, derivations, licenses, etc. Note that this code crucially requires the [FINUFFT](https://github.com/ahbarnett/finufft) library, as detailed in the installaiton instructions. Finally, matlab codes (following the same sinc algorithm) are included for convenience as well.

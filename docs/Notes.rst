@@ -1,7 +1,7 @@
 Notes
 =========================================
 
-finufft
+FINUFFT
 ---------
 The current installation instructions do not use the parallel capability of FINUFFT, which would provide an additional speedup. To do so, follow the installation instructions of FINUFFT regarding the openmp library and the appropriate compilation flags.
 
