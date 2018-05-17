@@ -7,7 +7,7 @@ Note that the programs are self-contained -- they are not Matlab interfaces to t
 
 To use the FINUFFT Matlab interfaces, follow their documentation_. Then, use Matlab's "addpath" to ensure the FINUFFT programs (e.g. finufft2d3) will be found. 
 
-.. _documentation :
+.. _documentation:
 	
 	http://finufft.readthedocs.io/en/latest/index.html
 
