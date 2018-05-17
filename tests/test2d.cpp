@@ -21,27 +21,28 @@ int main()
 
 	double* klocs_d1=(double*)malloc(sizeof(double)*numlocs);
 	double* klocs_d2=(double*)malloc(sizeof(double)*numlocs);
-	double* q=(double*)malloc(sizeof(double)*numlocs);
+	complex<double>* q=(complex<double>*)malloc(sizeof(complex<double>)*numlocs);
 	randarr(klb,kub,numlocs,klocs_d1);
 	randarr(klb,kub,numlocs,klocs_d2);
-	randarr(qlb,qub,numlocs,q);
+	randcarr(qlb,qub,numlocs,q);
 
-	double* corr=(double*)malloc(sizeof(double)*numlocs);
+	complex<double>* corr=(complex<double>*)malloc(sizeof(complex<double>)*numlocs);
 	start=clock();
 	directsinc2d(ifl,numlocs,klocs_d1,klocs_d2,q,corr,1e-14); 
 	cout<<"Direct calculation: "<<setprecision(6)<<(clock()-start)/(double) CLOCKS_PER_SEC<<" sec. \n";
+
 
 	for(int a=0;a<14;a++)
 	{
 		pr=precisions[a];
 
-		double* myout=(double*)malloc(sizeof(double)*numlocs);
+		complex<double>* myout=(complex<double>*)malloc(sizeof(complex<double>)*numlocs);
 
 		start=clock();
 		s_err=sinc2d(ifl,numlocs,klocs_d1,klocs_d2,q,pr,myout); 
 		cout<<"Runtime: "<<setprecision(6)<<(clock()-start)/(double) CLOCKS_PER_SEC<<" sec. ";
 
-		err=geterr(myout,corr,numlocs);
+		err=getcerr(myout,corr,numlocs);
 		cout<<"Requested precision: "<<pr<<" "; // Requested precision
 		cout<<"Error: "<<err<<"\n"; // Error compared to direct calculation
 		free(myout);	
@@ -50,7 +51,7 @@ int main()
 
 	cout<<"\nSincsq with "<<numlocs<<" samples:\n";
 
-	corr=(double*)malloc(sizeof(double)*numlocs);
+	corr=(complex<double>*)malloc(sizeof(complex<double>)*numlocs);
 	start=clock();
 	directsincsq2d(ifl,numlocs,klocs_d1,klocs_d2,q,corr,1e-14); 
 	cout<<"Direct calculation: "<<setprecision(6)<<(clock()-start)/(double) CLOCKS_PER_SEC<<" sec. \n";
@@ -59,13 +60,13 @@ int main()
 	{
 		pr=precisions[a];
 
-		double* myout=(double*)malloc(sizeof(double)*numlocs);
+		complex<double>* myout=(complex<double>*)malloc(sizeof(complex<double>)*numlocs);
 
 		start=clock();
 		s_err=sincsq2d(ifl,numlocs,klocs_d1,klocs_d2,q,pr,myout); 
 		cout<<"Runtime: "<<setprecision(6)<<(clock()-start)/(double) CLOCKS_PER_SEC<<" sec. ";
 
-		err=geterr(myout,corr,numlocs);
+		err=getcerr(myout,corr,numlocs);
 		cout<<"Requested precision: "<<pr<<" "; // Requested precision
 		cout<<"Error: "<<err<<"\n"; // Error compared to direct calculation
 		free(myout);		

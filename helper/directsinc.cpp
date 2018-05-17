@@ -5,7 +5,7 @@
 
 // Direct calculations of sinc transformations in 1 dimension
 
-void directsinc1d(int ifl,int numlocs,double *klocs, double* q,double *ans, double pr)
+void directsinc1d(int ifl,int numlocs,double *klocs, complex<double>* q,complex<double> *ans, double pr)
 {
 	double pi=4*atan(1);
 	double diff;
@@ -34,7 +34,7 @@ void directsinc1d(int ifl,int numlocs,double *klocs, double* q,double *ans, doub
 		}
 	}
 }
-void directsincsq1d(int ifl, int numlocs,double *klocs, double* q,double *ans, double pr)
+void directsincsq1d(int ifl, int numlocs,double *klocs, complex<double>* q,complex<double> *ans, double pr)
 {
 	double pi=4*atan(1);
 	double diff;
@@ -66,7 +66,7 @@ void directsincsq1d(int ifl, int numlocs,double *klocs, double* q,double *ans, d
 
 // Direct calculations of sinc transformations in 2 dimensions
 
-void directsinc2d(int ifl,int numlocs,double *klocs_d1,double *klocs_d2, double* q, double *ans, double pr)
+void directsinc2d(int ifl,int numlocs,double *klocs_d1,double *klocs_d2, complex<double>* q, complex<double> *ans, double pr)
 {
 	double pi=4*atan(1);
 	double diff_d1,diff_d2,a1,a2;
@@ -113,7 +113,7 @@ void directsinc2d(int ifl,int numlocs,double *klocs_d1,double *klocs_d2, double*
 		}
 	}
 }
-void directsincsq2d(int ifl, int numlocs,double *klocs_d1,double *klocs_d2, double* q, double *ans, double pr)
+void directsincsq2d(int ifl, int numlocs,double *klocs_d1,double *klocs_d2, complex<double>* q, complex<double> *ans, double pr)
 {
 	double pi=4*atan(1);
 	double diff_d1,diff_d2,a1,a2;
@@ -163,7 +163,7 @@ void directsincsq2d(int ifl, int numlocs,double *klocs_d1,double *klocs_d2, doub
 
 // Direct calculations of sinc transformations in 3 dimensions
 
-void directsinc3d(int ifl,int numlocs,double *klocs_d1,double *klocs_d2,double *klocs_d3, double* q,double *ans, double pr)
+void directsinc3d(int ifl,int numlocs,double *klocs_d1,double *klocs_d2,double *klocs_d3, complex<double>* q,complex<double> *ans, double pr)
 {
 	double pi=4*atan(1);
 	double diff_d1,diff_d2,diff_d3,a1,a2,a3;
@@ -220,7 +220,7 @@ void directsinc3d(int ifl,int numlocs,double *klocs_d1,double *klocs_d2,double *
 		}
 	}
 }
-void directsincsq3d(int ifl, int numlocs,double *klocs_d1,double *klocs_d2,double *klocs_d3, double* q,double *ans, double pr)
+void directsincsq3d(int ifl, int numlocs,double *klocs_d1,double *klocs_d2,double *klocs_d3, complex<double>* q,complex<double> *ans, double pr)
 {
 	double pi=4*atan(1);
 	double diff_d1,diff_d2,diff_d3,a1,a2,a3;

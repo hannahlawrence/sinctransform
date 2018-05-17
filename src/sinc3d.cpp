@@ -12,7 +12,7 @@ using namespace std;
 
 // Contains sinc3d and sincsq3d
 
-int sinc3d(int ifl,int numlocs,double *klocs_d1_,double *klocs_d2_,double *klocs_d3_,double *q,double tol,double *res)
+int sinc3d(int ifl,int numlocs,double *klocs_d1_,double *klocs_d2_,double *klocs_d3_,complex<double> *q,double tol,complex<double> *res)
 {
 	/*  
 	Computes res[j] = sum sinc(klocs_d1_[k]-klocs_d1_[j]) * sinc(klocs_d2_[k]-klocs_d2_[j]) * sinc(klocs_d3_[k]-klocs_d3_[j]) * q[j]
@@ -57,7 +57,7 @@ int sinc3d(int ifl,int numlocs,double *klocs_d1_,double *klocs_d2_,double *klocs
 		{
 			rkmaxz=a_d3;
 		}
-		qc[a]=complex<double> (q[a],0); //make q complex for finufft1d3
+		qc[a]=q[a]; //make q complex for finufft1d3
 		klocs_d1[a]=klocs_d1_[a]; // to ensure that program does not alter input
 		klocs_d2[a]=klocs_d2_[a];
 		klocs_d3[a]=klocs_d3_[a];
@@ -136,7 +136,7 @@ int sinc3d(int ifl,int numlocs,double *klocs_d1_,double *klocs_d2_,double *klocs
 	//make wtrans real (double array)
 	for(int a=0;a<numlocs;a++)
 	{
-		res[a]=real(wtrans[a]);
+		res[a]=wtrans[a];
 	}
 
 	//FREE MEMORY
@@ -152,7 +152,7 @@ int sinc3d(int ifl,int numlocs,double *klocs_d1_,double *klocs_d2_,double *klocs
 }
 
 
-int sincsq3d(int ifl,int numlocs,double *klocs_d1_,double *klocs_d2_,double *klocs_d3_,double *q,double tol,double *res)
+int sincsq3d(int ifl,int numlocs,double *klocs_d1_,double *klocs_d2_,double *klocs_d3_,complex<double> *q,double tol,complex<double> *res)
 {
 	/*  
 	Computes res[j] = sum sinc^2(klocs_d1_[k]-klocs_d1_[j]) * sinc^2(klocs_d2_[k]-klocs_d2_[j]) * sinc^2(klocs_d3_[k]-klocs_d3_[j]) * q[j]
@@ -197,7 +197,7 @@ int sincsq3d(int ifl,int numlocs,double *klocs_d1_,double *klocs_d2_,double *klo
 		{
 			rkmaxz=a_d3;
 		}
-		qc[a]=complex<double> (q[a],0); //make q complex for finufft1d3
+		qc[a]=q[a]; //make q complex for finufft1d3
 		klocs_d1[a]=klocs_d1_[a]; // to ensure that program does not alter input
 		klocs_d2[a]=klocs_d2_[a];
 		klocs_d3[a]=klocs_d3_[a];
@@ -306,7 +306,7 @@ int sincsq3d(int ifl,int numlocs,double *klocs_d1_,double *klocs_d2_,double *klo
 
 	for(int a=0;a<numlocs;a++)
 	{
-		res[a]=real(wtrans[a]);
+		res[a]=wtrans[a];
 	}
 	free(wtrans);
 	free(weighted);

@@ -13,17 +13,17 @@ int main()
 	double kub=10;
 	double qlb=-10;
 	double qub=10;
-	int numlocs=10000;
+	int numlocs=100;
 	int ifl=1;
 	int s_err;
 	cout<<"Sinc with "<<numlocs<<" samples:\n";
 
 	double* klocs=(double*)malloc(sizeof(double)*numlocs);
-	double* q=(double*)malloc(sizeof(double)*numlocs);
+	complex<double>* q=(complex<double>*)malloc(sizeof(complex<double>)*numlocs);
 	randarr(klb,kub,numlocs,klocs);
-	randarr(qlb,qub,numlocs,q);
+	randcarr(qlb,qub,numlocs,q);
 
-	double* corr=(double*)malloc(sizeof(double)*numlocs);
+	complex<double>* corr=(complex<double>*)malloc(sizeof(complex<double>)*numlocs);
 	start=clock();
 	directsinc1d(ifl,numlocs,klocs,q,corr,1e-14); 
 	cout<<"Direct calculation: "<<setprecision(6)<<(clock()-start)/(double) CLOCKS_PER_SEC<<" sec. \n";
@@ -31,13 +31,13 @@ int main()
 	for(int a=0;a<14;a++)
 	{
 		pr=precisions[a];
-		double* myout=(double*)malloc(sizeof(double)*numlocs);
+		complex<double>* myout=(complex<double>*)malloc(sizeof(complex<double>)*numlocs);
 
 		start=clock();
 		s_err=sinc1d(ifl,numlocs,klocs,q,pr,myout);
 		cout<<"Runtime: "<<setprecision(6)<<(clock()-start)/(double) CLOCKS_PER_SEC<<" sec. ";
 
-		err=geterr(myout,corr,numlocs);
+		err=getcerr(myout,corr,numlocs);
 		cout<<"Requested precision: "<<pr<<" "; // Requested precision
 		cout<<"Error: "<<err<<"\n"; // Error compared to direct calculation
 		free(myout);
@@ -46,7 +46,7 @@ int main()
 
 	cout<<"\nSincsq with "<<numlocs<<" samples:\n";
 
-	corr=(double*)malloc(sizeof(double)*numlocs);
+	corr=(complex<double>*)malloc(sizeof(complex<double>)*numlocs);
 	start=clock();
 	directsincsq1d(ifl,numlocs,klocs,q,corr,1e-14);
 	cout<<"Direct calculation: "<<setprecision(6)<<(clock()-start)/(double) CLOCKS_PER_SEC<<" sec. \n";
@@ -55,13 +55,13 @@ int main()
 	{
 		pr=precisions[a];
 
-		double* myout=(double*)malloc(sizeof(double)*numlocs);
+		complex<double>* myout=(complex<double>*)malloc(sizeof(complex<double>)*numlocs);
 
 		start=clock();
 		s_err=sincsq1d(ifl,numlocs,klocs,q,pr,myout); 
 		cout<<"Runtime: "<<setprecision(6)<<(clock()-start)/(double) CLOCKS_PER_SEC<<" sec. ";
 
-		err=geterr(myout,corr,numlocs);
+		err=getcerr(myout,corr,numlocs);
 		cout<<"Requested precision: "<<pr<<" "; // Requested precision
 		cout<<"Error: "<<err<<"\n"; // Error compared to direct calculation
 		free(myout);	

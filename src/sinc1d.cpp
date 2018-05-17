@@ -12,7 +12,7 @@ using namespace std;
 
 // Contains sinc1d and sincsq1d
 
-int sinc1d(int ifl,int numlocs,double *klocs_, double *q,double tol, double *res)
+int sinc1d(int ifl,int numlocs,double *klocs_, complex<double> *q,double tol, complex<double> *res)
 {
 	/*  
 	Computes res[j] = sum sinc(klocs_[k]-klocs_[j]) * q[j]
@@ -47,7 +47,8 @@ int sinc1d(int ifl,int numlocs,double *klocs_, double *q,double tol, double *res
 		{
 			rkmax=temp;
 		}
-		qc[a]=complex<double> (q[a],0); //make q complex for finufft1d3
+		//qc[a]=complex<double> (q[a],0); //make q complex for finufft1d3
+		qc[a]=q[a];
 		klocs[a]=klocs_[a]; // to ensure that program does not alter input
 	}
 
@@ -78,7 +79,7 @@ int sinc1d(int ifl,int numlocs,double *klocs_, double *q,double tol, double *res
 	// call 1 to finufft; h_at_xx will be complex
 	nufft_opts opts;	
 	complex<double>* h_at_xx=(complex<double>*)malloc(sizeof(complex<double>)*nx);
-	
+
 	int ier1=finufft1d3(numlocs,klocs,qc,-1,newtol,nx,xx,h_at_xx,opts);
 	if (ier1 != 0)
 	{
@@ -105,7 +106,7 @@ int sinc1d(int ifl,int numlocs,double *klocs_, double *q,double tol, double *res
 
 	for(int a=0;a<numlocs;a++)
 	{
-		res[a]=real(wtrans[a]);
+		res[a]=wtrans[a];
 	}
 
 	free(wtrans);
@@ -117,7 +118,7 @@ int sinc1d(int ifl,int numlocs,double *klocs_, double *q,double tol, double *res
 	return 0;
 }
 
-int sincsq1d(int ifl,int numlocs,double *klocs_, double *q,double tol, double *res)
+int sincsq1d(int ifl,int numlocs,double *klocs_, complex<double> *q,double tol, complex<double> *res)
 {
 	/*  
 	Computes res[j] = sum sinc^2(klocs_[k]-klocs_[j]) * q[j]
@@ -152,7 +153,8 @@ int sincsq1d(int ifl,int numlocs,double *klocs_, double *q,double tol, double *r
 		{
 			rkmax=temp;
 		}
-		qc[a]=complex<double> (q[a],0); //make q complex for finufft1d3
+		//qc[a]=complex<double> (q[a],0); //make q complex for finufft1d3
+		qc[a]=q[a];
 		klocs[a]=klocs_[a]; // to ensure that program does not alter input
 	}
 
@@ -213,7 +215,7 @@ int sincsq1d(int ifl,int numlocs,double *klocs_, double *q,double tol, double *r
 	//make wtrans real (double array)
 	for(int a=0;a<numlocs;a++)
 	{
-		res[a]=real(wtrans[a]);
+		res[a]=wtrans[a];
 	}
 
 	free(weighted);

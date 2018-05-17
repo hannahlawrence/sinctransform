@@ -12,5 +12,7 @@ void printarr_double(double* arr,int len);
 void printarr_cdouble(complex<double>* arr,int len);
 double geterr(double* a, double* b, int n);
 void randarr(double lb,double ub,int n,double* arr);
+void randcarr(double lb,double ub,int n,complex<double>* arr);
+double getcerr(complex<double>* x, complex<double>* y, int n);
 
 #endif

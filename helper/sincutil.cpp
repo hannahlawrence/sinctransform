@@ -44,11 +44,40 @@ double geterr(double* x, double* y, int n) // Calculate sqrt((x[1]-y[1])^2 + (x[
 	return err;
 }
 
+double getcerr(complex<double>* x, complex<double>* y, int n) // Calculate sqrt((x[1]-y[1])^2 + (x[2]-y[2])^2 + ... + (x[n]-y[n])^2)
+{
+	double err=0;
+	complex<double> idiff;
+	for(int a=0;a<n;a++)
+	{
+		idiff=x[a]-y[a];
+
+		err=err+pow(real(idiff),2)+pow(imag(idiff),2);
+	}
+	err=sqrt(err);
+	return err;
+}
+
 void randarr(double lb,double ub,int n,double* arr) // Populate arr, of length n, with random values between lb and ub
 {
 	for(int a=0;a<n;a++)
 	{
 		arr[a]=rand()/(double)RAND_MAX; // double between 0 and 1
 		arr[a]=(ub-lb)*arr[a] + lb;
+	}
+}
+
+void randcarr(double lb,double ub,int n,complex<double>* arr) // Populate arr, of length n, with random values between lb and ub
+{
+	double tempa;
+	double tempb;
+	for(int a=0;a<n;a++)
+	{
+		tempa=rand()/(double)RAND_MAX;
+		tempa=(ub-lb)*tempa + lb;
+
+		tempb=rand()/(double)RAND_MAX;
+		tempb=(ub-lb)*tempb + lb;
+		arr[a]=complex<double>(tempa,tempb);
 	}
 }

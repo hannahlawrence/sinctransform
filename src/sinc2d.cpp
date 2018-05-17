@@ -12,7 +12,7 @@ using namespace std;
 
 // Contains sinc2d and sincsq2d
 
-int sinc2d(int ifl,int numlocs,double *klocs_d1_,double *klocs_d2_,double *q,double tol,double *res)
+int sinc2d(int ifl,int numlocs,double *klocs_d1_,double *klocs_d2_,complex<double> *q,double tol,complex<double> *res)
 {
 	/*  
 	Computes res[j] = sum sinc(klocs_d1_[k]-klocs_d1_[j]) * sinc(klocs_d2_[k]-klocs_d2_[j]) * q[j]
@@ -50,7 +50,8 @@ int sinc2d(int ifl,int numlocs,double *klocs_d1_,double *klocs_d2_,double *q,dou
 		{
 			rkmaxy=a_d2;
 		}
-		qc[a]=complex<double> (q[a],0); //make q complex for finufft1d3
+		//qc[a]=complex<double> (q[a],0); //make q complex for finufft1d3
+		qc[a]=q[a];
 		klocs_d1[a]=klocs_d1_[a]; // to ensure that program does not alter input
 		klocs_d2[a]=klocs_d2_[a];
 	}
@@ -117,7 +118,7 @@ int sinc2d(int ifl,int numlocs,double *klocs_d1_,double *klocs_d2_,double *q,dou
 	//make wtrans real (double array)
 	for(int a=0;a<numlocs;a++)
 	{
-		res[a]=real(wtrans[a]);
+		res[a]=wtrans[a];
 	}
 
 	free(wtrans);
@@ -130,7 +131,7 @@ int sinc2d(int ifl,int numlocs,double *klocs_d1_,double *klocs_d2_,double *q,dou
 	return 0;
 }
 
-int sincsq2d(int ifl,int numlocs,double *klocs_d1_,double *klocs_d2_,double *q,double tol, double *res)
+int sincsq2d(int ifl,int numlocs,double *klocs_d1_,double *klocs_d2_,complex<double> *q,double tol, complex<double> *res)
 {
 	/*  
 	Computes res[j] = sum sinc^2(klocs_d1_[k]-klocs_d1_[j]) * sinc^2(klocs_d2_[k]-klocs_d2_[j]) * q[j]
@@ -168,7 +169,7 @@ int sincsq2d(int ifl,int numlocs,double *klocs_d1_,double *klocs_d2_,double *q,d
 		{
 			rkmaxy=a_d2;
 		}
-		qc[a]=complex<double> (q[a],0); //make q complex for finufft1d3
+		qc[a]=q[a]; //make q complex for finufft1d3
 		klocs_d1[a]=klocs_d1_[a]; // to ensure that program does not alter input
 		klocs_d2[a]=klocs_d2_[a];
 	}
@@ -257,7 +258,7 @@ int sincsq2d(int ifl,int numlocs,double *klocs_d1_,double *klocs_d2_,double *q,d
 	//make wtrans real (double array)
 	for(int a=0;a<numlocs;a++)
 	{
-		res[a]=real(wtrans[a]);
+		res[a]=wtrans[a];
 	}
 	free(wtrans);
 	free(weighted);

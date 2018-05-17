@@ -38,6 +38,8 @@ To use in other programs, begin by creating the static library:
 
 	make libsinc.a
 
+WHICH HEADERS ARE NEEDED??
+
 Then compile with both the sinctransform and finufft static libraries, e.g.
 
 .. code::
