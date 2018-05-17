@@ -15,7 +15,7 @@ where we have
 
 Sometimes, :math:`\text{sinc}` is defined with an additional :math:`\pi` coefficient, i.e. :math:`\text{sinc}(x)=\frac{\sin(\pi x)}{\pi x}`. There is always an option to specify which convention you prefer as one of the input arguments.
 
-This code relies on the FINUFFT library to efficiently compute the nonuniform Fourier transform, and contains separate C++ code for 1, 2, and 3 dimensions. For completeness, there is also some Matlab code to perform the same functions. It is slightly slower and not necessarily well-documented, but may be easier to understand.
+This code relies on the FINUFFT library to efficiently compute the nonuniform Fourier transform, and contains separate C++ code for 1, 2, and 3 dimensions. For completeness, there is also some Matlab code to perform the same functions. It is slightly slower and not as well-documented, but may be more convenient or easy to understand.
 
 .. figure:: SincGraphBasic.png
     :width: 70%

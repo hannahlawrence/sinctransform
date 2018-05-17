@@ -26,7 +26,7 @@ Programs used in directsinc.cpp, as well as all example and testing code, to pri
 	sincutil.hpp
 
 
-For computing Gauss-Legendre quadrature weights (see [2] in citations):
+For computing Gauss-Legendre quadrature nodes and weights (see [2] in citations):
 
 .. code::
 
@@ -59,3 +59,21 @@ Matlab code (not C++ wrappers) for sinc transform:
 	sincsq1d.m
 	sincsq2d.m
 	sincsq3d.m
+
+Matlab to compute the "optimal" quadrature weights for reconstruction, as described in [1] of citations, using the sinc-squared programs:
+
+.. code::
+
+	autoquad1d.m
+	autoquad2d.m
+	autoquad3d.m
+
+Matlab to compute Gauss-Legendre nodes and weights (credit to Greg von Winckel; see licenses):
+
+.. code::
+	
+	lgwt.m
+
+
+
+
