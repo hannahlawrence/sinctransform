@@ -38,8 +38,18 @@ To use in other programs, begin by creating the static library:
 
 	make libsinc.a
 
-WHICH HEADERS ARE NEEDED??
+In the code itself, make sure to include the header file:
 
+.. code::
+
+	#include "sinctransform.hpp"
+
+The sinc functions also expect a complex<double> array for q (even if all the complex values are 0), so it will also be necessary to include the corresponding header:
+
+.. code::
+	
+	#include <complex>
+	
 Then compile with both the sinctransform and finufft static libraries, e.g.
 
 .. code::
