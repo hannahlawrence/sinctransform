@@ -1,11 +1,19 @@
 # Sinc Transform
 
-A C++ package for computing the sinc and sinc-squared transforms (as described by [1] in Citations) in 1, 2, and 3 dimensions. **Add note here about speed! (See individual files for more detailed documentation.)
+A C++ package for computing the fast sinc and sinc-squared transforms in 1, 2, and 3 dimensions according to the algorithm proposed by Greengard et. al. in 2006. These are defined as follows with respect to some input :math:`k_1,...,k_n \in \mathbf{R}` and :math:`q_1,...,q_n \in \mathbf{C}`:
 
-**Links to readthedocs here:
-[to be inserted]
+.. math::
 
-[interim documentation below, possibly keep?]
+	\sum_{j=1}^m q_j\text{sinc}^{(2)}(\mathbf{k_i}-\mathbf{k_j})
+
+where we have
+
+.. math::
+	
+	\text{sinc}(\mathbf{x})=\prod_{i=1}^r \frac{\text{sin}(x_i)}{x_i} \: \: \: \mathbf{x} \in \mathbf{R}^r
+
+This code requires the [FINUFFT](https://github.com/ahbarnett/finufft) library. Please see the documentation [here](http://fast-sinc-transform.readthedocs.io/en/latest/) for installation instructions, descriptions of example code, derivations, licenses, etc.
+
 
 ### Installation
 
