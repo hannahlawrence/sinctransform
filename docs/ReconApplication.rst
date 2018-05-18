@@ -1,4 +1,0 @@
-Application: Image Reconstruction
-=========================================
-
-wef

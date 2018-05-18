@@ -16,7 +16,6 @@ Sinc Transform Documentation
    Examples
    Tests
    Derivation
-   ReconApplication
    Matlab
    Notes
    Citations 
