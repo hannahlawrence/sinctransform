@@ -11,4 +11,4 @@ To use the FINUFFT Matlab interfaces, follow their documentation_. Then, use Mat
 	
 	http://finufft.readthedocs.io/en/latest/index.html
 
-Finally, make sure lgwt.m is in the same directory, or that its directory is also included in Matlab's path.
+Finally, make sure lgwt.m is in the same directory, or that its directory is also included in Matlab's path. If using the recon examples from within the recon directory, also ensure that the directory one level above (containing all the sinc programs) is on Matlab's path.

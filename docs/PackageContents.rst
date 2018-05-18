@@ -60,19 +60,27 @@ Matlab code (not C++ wrappers) for sinc transform:
 	sincsq2d.m
 	sincsq3d.m
 
-Matlab to compute the "optimal" quadrature weights for reconstruction, as described in [1] of citations, using the sinc-squared programs:
+Matlab to compute Gauss-Legendre nodes and weights, and to generate a 3d Shepp-Logan phantom (credit to Greg von Winckel and Matthias Schabel, respectively; see licenses):
+
+.. code::
+	
+	lgwt.m
+	phantom3d.m
+
+As one application-based example, we also include annotated Matlab code to reconstruct an image from its nonuniformly sampled Fourier data, using the autoquad and sinc functions:
+
+.. code::
+	
+	recon2d.m
+	recon3d.m
+
+These use the following to compute the "optimal" quadrature weights for reconstruction, as described in [1] of citations, via the sinc-squared programs:
 
 .. code::
 
 	autoquad1d.m
 	autoquad2d.m
 	autoquad3d.m
-
-Matlab to compute Gauss-Legendre nodes and weights (credit to Greg von Winckel; see licenses):
-
-.. code::
-	
-	lgwt.m
 
 
 

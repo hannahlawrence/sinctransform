@@ -8,4 +8,4 @@ A C++ package for computing the fast sinc and sinc-squared transforms in 1, 2, a
 Please see the primary documentation [here](http://fast-sinc-transform.readthedocs.io/en/latest/) for installation instructions, example code, derivations, licenses, etc. 
 
 ## Prerequisites
-Note that this code crucially requires the [FINUFFT](https://github.com/ahbarnett/finufft) library, as detailed in the installaiton instructions, as well as all of its required libraries (FFTW, for example). 
+Note that this code crucially requires the [FINUFFT](https://github.com/ahbarnett/finufft) library, as detailed in the installation instructions, as well as all of its required libraries (FFTW, for example). 

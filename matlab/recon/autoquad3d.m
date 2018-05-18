@@ -10,4 +10,4 @@ function wvec=autoquad3d(klocs_d1,klocs_d2,klocs_d3)
 
 ifl=1;
 q=ones(size(klocs_d1));
-wvec=1./sincsq3d(ifl,klocs_d1,klocs_d2,klocs_d3,q,1e-16);
+wvec=1./sincsq3d(ifl,klocs_d1,klocs_d2,klocs_d3,q,1e-6); %lower, for speed

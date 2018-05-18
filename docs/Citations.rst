@@ -17,6 +17,10 @@ FINUFFT library:
 
 [3] (coming soon)
 
+3d k-space sampling (for 3d reconstruction example):
+
+[4] Park J, Shin T, Yoon SH, Goo JM, Park J-Y. A radial sampling strategy for uniform k-space coverage with retrospective respiratory gating in 3D ultrashort-echo-time lung imaging. NMR in biomedicine. 2016;29(5):576-587. doi:10.1002/nbm.3494.
+
 Licenses
 ---------
 Sinc and FINUFFT
@@ -34,6 +38,11 @@ C++ functions for Gauss-Legendre quadrature
 Code based on [2], by J. Burkardt. Code distributed under the BSD license, which can be found at
 
 	https://people.sc.fsu.edu/~jburkardt/txt/bsd_license.txt
+
+3d phantom
+~~~~~~~~~~~~~~~~~~~~~
+
+From MathWorks File Exchange, via BSD license (see above)
 
 Matlab functions for Gauss-Legendre quadrature
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
