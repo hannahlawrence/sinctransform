@@ -18,6 +18,6 @@ Finally, make sure lgwt.m is in the same directory, or that its directory is als
 Reconstruction Examples
 -------------------------
 
-In the recon directory, the autoquad functions will compute quadrature weights based on the coordinates sampled in k-space (see [1]). recon2d.m and recon3d.m use these weights in several different ways to reconstruct simulated data (the Shepp-Logan phantom). Note that recon3d is still under development, as autoquad3d can handle only small numbers of samples in a reasonable amoutn of time.
+In the recon directory, the autoquad functions will compute quadrature weights based on the coordinates sampled in k-space (see [1]). recon2d.m and recon3d.m use these weights in several different ways to reconstruct simulated data (the Shepp-Logan phantom). Note that recon3d is still under development, as autoquad3d can handle only small numbers of samples in a reasonable amount of time.
 
 If using the recon examples from within the recon directory, also ensure that the directory one level above (containing all the sinc programs) is on Matlab's path.
