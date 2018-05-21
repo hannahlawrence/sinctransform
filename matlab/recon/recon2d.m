@@ -63,7 +63,7 @@ weights=autoquad2d(k_d1,k_d2); %quadrature weights
 
 measurements=rF(f);
 retrieved_radial_weights=rFstar(measurements.*weights);
-retrieved_radial_weights=retrieved_radial_weights/N1; % Method 1 [1]
+retrieved_radial_weights=retrieved_radial_weights/(N1*N2); % Method 1 [1]
 
 % Preconditioning Method 1 (Right)
 sqw=sqrt(weights);
@@ -103,7 +103,7 @@ weights=autoquad2d(k_d1,k_d2); %quadrature weights
     end
 measurements=F(f);
 retrieved_spiral_weights=Fstar(weights.*measurements);
-retrieved_spiral_weights=retrieved_spiral_weights/N1; % Method 1 [1]
+retrieved_spiral_weights=retrieved_spiral_weights/(N1*N2); % Method 1 [1]
 
 % Preconditioning Method 1 (Right)
 sqw=sqrt(weights);
