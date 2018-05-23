@@ -93,6 +93,7 @@ int sinc2d(int ifl,int numlocs,double *klocs_d1_,double *klocs_d2_,complex<doubl
 	}
 
 	nufft_opts opts;
+	finufft_default_opts(opts);
 	//h_at_xx will be complex
 	complex<double>* h_at_xxyy=(complex<double>*)malloc(sizeof(complex<double>)*nx*ny);
 	int ier1=finufft2d3(numlocs,klocs_d1,klocs_d2,qc,-1,newtol,nx*ny,allxx,allyy,h_at_xxyy,opts);
@@ -234,6 +235,7 @@ int sincsq2d(int ifl,int numlocs,double *klocs_d1_,double *klocs_d2_,complex<dou
 	}
 	
 	nufft_opts opts;
+	finufft_default_opts(opts);
 	complex<double>* h_at_xxyy=(complex<double>*)malloc(sizeof(complex<double>)*4*nx*ny);
 	int ier1=finufft2d3(numlocs,klocs_d1,klocs_d2,qc,-1,newtol,4*nx*ny,allxx,allyy,h_at_xxyy,opts);
 	if (ier1 != 0)

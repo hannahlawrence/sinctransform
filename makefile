@@ -1,22 +1,61 @@
-
-# Makefile for sinc transform programs
+# Makefile for sinc transform programs.
+# By Hannah Lawrence. (C) Simons Foundation 2018.
+# Edits by Alex Barnett.
+#
+# User: please edit the FLAGS and PATHS below for your system.
+#
+# Tasks:
+#
+# make lib      - make main static library
+# make examples - make and run examples
+# make tests    - make and run tests (takes ~30 s to run)
+# make all
+# make clean
 
 CXX=g++
-CURRENT=/Users/hannah/Documents/Flatiron18/sinctransform
+CURRENT=.
 CURRENT_FLAG=-I$(CURRENT)
-FFTW=/usr/local/lib
+
+# point to your fftw library directory (here is the usual linux one):
+FFTW=/usr/lib/x86_64-linux-gnu/
 FFTW_FLAG=-L$(FFTW)
-FINUFFT=/Users/hannah/Documents/Summer2017/Flatiron/fi2/finufft
-FINUFFT_LIB_PATH=/lib/libfinufft.a
+
+# point to the top of your finufft installation:
+FINUFFT=../finufft/
+
+FINUFFT_LIB_PATH=/lib/libfinufft.so
+#FINUFFT_LIB_PATH=/lib-static/libfinufft.a
 FINUFFT_LIB=$(FINUFFT)$(FINUFFT_LIB_PATH)
 FINUFFT_HEADER_FLAG=-I$(FINUFFT)/src/
 FINUFFT_HEADER=$(FINUFFT)/src/finufft.h
-FINUFFT_FLAGS=-lfftw3 -lm
-FLAGS=-std=c++11 -g -Wall 
+# if multi-thread:
+FINUFFT_FLAGS=-lfftw3 -lfftw3_threads -lm -lgomp
+# if single-thread:
+#FINUFFT_FLAGS=-lfftw3 -lm
+
+#FLAGS=-std=c++11 -g -Wall
+# -fext-numeric-literals needed for 0+1i complex literals in gcc 5.4.0:
+FLAGS=-std=c++11 -g -Wall -fext-numeric-literals
+
 EXAMPLE_DIR=examples
 TEST_DIR=tests
 HELPER_DIR=helper
 SOURCE_DIR=src
+
+# build list of executables (could use such automation below too..)
+EXAMPLES=$(patsubst %.cpp,%,$(wildcard $(EXAMPLE_DIR)/*.cpp))
+TESTS=$(patsubst %.cpp,%,$(wildcard $(TEST_DIR)/*.cpp))
+
+# tasks:
+all: lib examples tests
+
+lib: libsinc.a
+
+examples: $(EXAMPLES)
+	$(foreach x,$(EXAMPLES),$(x);)
+
+tests: $(TESTS)
+	$(foreach x,$(TESTS),$(x);)
 
 # Main sinc computations
 $(SOURCE_DIR)/sinc1d.o: $(SOURCE_DIR)/sinc1d.cpp helper/fastgl.hpp $(SOURCE_DIR)/sinctransform.hpp helper/sincutil.hpp $(FINUFFT_HEADER)

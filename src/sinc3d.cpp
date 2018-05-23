@@ -18,7 +18,7 @@ int sinc3d(int ifl,int numlocs,double *klocs_d1_,double *klocs_d2_,double *klocs
 	Computes res[j] = sum sinc(klocs_d1_[k]-klocs_d1_[j]) * sinc(klocs_d2_[k]-klocs_d2_[j]) * sinc(klocs_d3_[k]-klocs_d3_[j]) * q[j]
 	             	   k
 
-	Inputs:
+	Input:
 		ifl = sinc convention
 			0: sinc(x) = sin(x)/x
 			1: sinc(x)=sin(pi*x)/(pi*x)
@@ -111,6 +111,7 @@ int sinc3d(int ifl,int numlocs,double *klocs_d1_,double *klocs_d2_,double *klocs
 		}
 	}
 	nufft_opts opts;
+	finufft_default_opts(opts);
 	//h_at_xx will be complex
 	complex<double>* h_at_xxyyzz=(complex<double>*)malloc(sizeof(complex<double>)*nx*ny*nz);
 	int ier1=finufft3d3(numlocs,klocs_d1,klocs_d2,klocs_d3,qc,-1,newtol,nx*ny*nz,allxx,allyy,allzz,h_at_xxyyzz,opts);
@@ -282,6 +283,7 @@ int sincsq3d(int ifl,int numlocs,double *klocs_d1_,double *klocs_d2_,double *klo
 	}
 
 	nufft_opts opts;
+	finufft_default_opts(opts);
 	//h_at_xx will be complex
 	complex<double>* h_at_xxyyzz=(complex<double>*)malloc(sizeof(complex<double>)*8*nx*ny*nz);
 	int ier1=finufft3d3(numlocs,klocs_d1,klocs_d2,klocs_d3,qc,-1,newtol,8*nx*ny*nz,allxx,allyy,allzz,h_at_xxyyzz,opts);

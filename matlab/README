@@ -1,0 +1,11 @@
+This matlab directory contains early development codes, that may be
+pedagogically interesting to the reader. Please use the
+C++ codes for production work.
+
+The following codes perform a self-test when run without arguments:
+sinc1d
+sinc2d
+sinc3d
+sincsq1d
+sincsq2s
+sincsq3d
