@@ -28,4 +28,5 @@ int main() // A simple example of usage for sinc1d and sincsq1d
 	s_err=sincsq1d(ifl,numlocs,klocs,q,pr,myout_sincsq1d); 
 	cout<<"---Sincsq1d Output---\n";
 	printarr_cdouble(myout_sincsq1d,numlocs);
+	return s_err;
 }

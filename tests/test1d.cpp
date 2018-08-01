@@ -13,7 +13,7 @@ int main()
 	double kub=10;
 	double qlb=-10;
 	double qub=10;
-	int numlocs=100;
+	int numlocs=5000;
 	int ifl=1;
 	int s_err;
 	cout<<"Sinc with "<<numlocs<<" samples:\n";
@@ -69,5 +69,6 @@ int main()
 
 	free(corr);
 	free(klocs);
-	free(q);	
+	free(q);
+	return s_err;
 }

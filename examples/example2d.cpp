@@ -27,5 +27,6 @@ int main() // A simple example of usage for sinc2d and sincsq2d
 	s_err=sincsq2d(ifl,numlocs,klocs_d1,klocs_d2,q,pr,myout_sincsq2d);
 	cout<<"---Sincsq2d Output---\n";
 	printarr_cdouble(myout_sincsq2d,numlocs);
-
+	
+	return s_err;
 }

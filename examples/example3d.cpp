@@ -29,4 +29,5 @@ int main() // A simple example of usage for sinc3d and sincsq3d
 	cout<<"---Sincsq3d Output---\n";
 	printarr_cdouble(myout_sincsq3d,numlocs);
 
+	return s_err;
 }

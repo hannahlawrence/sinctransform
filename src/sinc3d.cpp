@@ -18,7 +18,7 @@ int sinc3d(int ifl,int numlocs,double *klocs_d1_,double *klocs_d2_,double *klocs
 	Computes res[j] = sum sinc(klocs_d1_[k]-klocs_d1_[j]) * sinc(klocs_d2_[k]-klocs_d2_[j]) * sinc(klocs_d3_[k]-klocs_d3_[j]) * q[j]
 	             	   k
 
-	Inputs:
+	Input:
 		ifl = sinc convention
 			0: sinc(x) = sin(x)/x
 			1: sinc(x)=sin(pi*x)/(pi*x)

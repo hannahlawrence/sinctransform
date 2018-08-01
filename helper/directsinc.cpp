@@ -5,35 +5,27 @@
 
 // Direct calculations of sinc transformations in 1 dimension
 
+// macro to handle the origin
+#define SINC(x) ((abs(x)<1e-8) ? 1.0 : sin(x)/x)
+
 void directsinc1d(int ifl,int numlocs,double *klocs, complex<double>* q,complex<double> *ans, double pr)
+// alex clarified version
 {
 	double pi=4*atan(1);
 	double diff;
 	// init. to zeros
 	for(int a=0;a<numlocs;a++)
-	{
-		ans[a]=0;
-	}
-	for(int b=0;b<numlocs;b++)
-	{
-		for(int a=0;a<numlocs;a++)
-		{
-			if(equals(a,b,1e-5)| equals(klocs[a],klocs[b],pr))
-			{
-				ans[b]=ans[b]+q[a];
-			}
-			else
-			{
-				diff=klocs[b]-klocs[a];
-				if(ifl==1)
-				{
-					diff=diff*pi;
-				}
-				ans[b]=ans[b]+(q[a]*sin(diff)/diff);
-			}
-		}
+	  ans[a]=0.0;
+	for(int b=0;b<numlocs;b++) {
+	  for(int a=0;a<numlocs;a++) {
+	    diff=klocs[b]-klocs[a];
+	    if(ifl==1)
+	      diff=diff*pi;
+	    ans[b] += q[a] * SINC(diff);   // note macro above, no pr needed	
+	  }
 	}
 }
+
 void directsincsq1d(int ifl, int numlocs,double *klocs, complex<double>* q,complex<double> *ans, double pr)
 {
 	double pi=4*atan(1);
@@ -58,6 +50,7 @@ void directsincsq1d(int ifl, int numlocs,double *klocs, complex<double>* q,compl
 				{
 					diff=diff*pi;
 				}
+				// pow(x,2) is slow - replace by set x; do x*x
 				ans[b]=ans[b]+(q[a]*pow(sin(diff)/diff,2));
 			}
 		}

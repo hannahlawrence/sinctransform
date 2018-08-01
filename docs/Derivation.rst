@@ -1,7 +1,7 @@
 Mathematical Derivation
 =========================================
 
-Recall the objective is to compute 
+Recall the objective is to compute, for all :math:`i=1,\ldots m`,
 
 .. math::
 
@@ -9,13 +9,13 @@ Recall the objective is to compute
 
 	\sum_{j=1}^m q_j\text{sinc}^2(\mathbf{k_i}-\mathbf{k_j})
 
-Also, the finufft library can quickly compute expressions of the form
+We will exploit the fact that the the FINUFFT library quickly computes expressions of the form
 
 .. math::
 
-	\sum_{j=1}^m f(x_j)e^{\pm i x_j k_r}
+	\sum_{j=1}^m f(x_j)e^{\pm i x_j k_r}  \qquad \mbox{ for all } r=1,\ldots,n
 
-where the points :math:`x_j` and :math:`k_r` may be arbitrarily spaced.
+much faster than the naive :math:`O(nm)` time, where the points :math:`x_j` and :math:`k_r` may be arbitrarily spaced.
 
 Conventions
 -------------

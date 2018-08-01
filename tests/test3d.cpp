@@ -13,7 +13,7 @@ int main()
 	double kub=1;
 	double qlb=-1;
 	double qub=1;
-	int numlocs=10000;
+	int numlocs=5000;
 	int ifl=1;
 	int s_err;
 
@@ -76,4 +76,6 @@ int main()
 	free(klocs_d3);
 	free(q);
 	free(corr);		
+
+	return s_err;
 }

@@ -1,6 +1,19 @@
 Citations and Licenses
 =========================================
 
+Main author of sinctransform: Hannah Lawrence.
+
+sinctranform was written while Hannah was a summer intern at the
+Numerical Algorithms Group, Center for Computational Biology,
+Flatiron Institute, NYC.
+
+Collaborators: Leslie Greengard, Alex Barnett, Jeremy Magland
+(Flatiron Institute)
+
+
+Relevant journal articles
+-------------------------
+
 Sinc transform:
 
 [1] Greengard, L., Lee, J-Y., & Inati, S. (2006).
@@ -27,7 +40,12 @@ Sinc and FINUFFT
 ~~~~~~~~~~~~~~~~~~~
 Copyright (C) 2017-2018 The Simons Foundation, Inc. - All Rights Reserved.
 
-FINUFFT and sinc libraries are licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.  You may obtain a copy of the License at
+Main author: Hannah Lawrence.
+
+In collaboration with: Leslie Greengard, Alex Barnett, Jeremy Magland
+(Flatiron Institute)
+
+sinctransform is licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.  You may obtain a copy of the License at
 
     http://www.apache.org/licenses/LICENSE-2.0
 

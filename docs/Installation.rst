@@ -9,25 +9,26 @@ Installation and Usage
 Configuration
 ---------------
 
-1. In the makefile, change CURRENT to the folder containing the library: 
-
-.. code::
-
-	CURRENT = /some/path/to/sinctransform
-
-2. In the makefile, change FINUFFT to the path to finufft: 
+1. In the makefile, change FINUFFT to the path to finufft: 
 
 .. code::
 	
 	FINUFFT = /some/path/to/finufft
 
-3. In the makefile, change FFTW to the directory containing the fftw library: 
+1. In the makefile, change FFTW to the directory containing the fftw library: 
 
 .. code::
 
 	FFTW = /some/path/to/fft 
 
-(Note: on a Mac, this may be /usr/local/lib)
+(Note: on a Mac, this may be /usr/local/lib. On linux it is /usr/lib/x86_64-linux-gnu)
+
+Testing
+-------
+
+Run `make all` to build and test the library. All tests and examples should
+complete without error. The tests should run for less than 30 seconds and show errors reaching around 1e-10.
+
 
 Usage
 ----------------
@@ -36,9 +37,10 @@ To use in other programs, begin by creating the static library:
 
 .. code::
 
-	make libsinc.a
+	make lib
 
-In the code itself, make sure to include the header file:
+This creates `libsinc.a`, which should be linked against your code.
+In your code, make sure to include the header file:
 
 .. code::
 
