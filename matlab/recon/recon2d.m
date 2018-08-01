@@ -44,7 +44,7 @@ end
 function y=polary(r,th)
     y=r*sin(th);
 end
-r=45;
+r=45; 
 numsectors=ceil(2*(2*pi*r+1)+1);
 theta=2*pi/numsectors;
 thetavals=0:theta:(2*pi);
@@ -54,6 +54,7 @@ yp=bsxfun(@polary,rvals',thetavals);
 k_d1=xp(:);
 k_d2=yp(:);
 weights=autoquad2d(k_d1,k_d2); %quadrature weights
+
     function vec=rF(strengths)
         vec=finufft2d3(unif_d1,unif_d2,strengths,-1,1e-15,2*pi*k_d1,2*pi*k_d2);
     end
@@ -95,6 +96,7 @@ end
 k_d1=x(:);
 k_d2=y(:);
 weights=autoquad2d(k_d1,k_d2); %quadrature weights
+
     function vec=F(strengths)
         vec=finufft2d3(unif_d1,unif_d2,strengths,-1,1e-15,2*pi*k_d1,2*pi*k_d2);
     end
@@ -126,7 +128,8 @@ retrieved_spiral_PCGleft=pcg(@lmat,Fstar(weights.*measurements));
 close all
 figure('pos',[50 330 1350 200]); suptitle('Radial'); % radial
 subplot(1,4,1);
-imagesc(reshape(real(retrieved_cartesian),N1,N2));
+%imagesc(reshape(real(retrieved_cartesian),N1,N2));
+imagesc(reshape(real(rFstar(measurements)),N1,N2));
 colorbar();
 title('Cartesian')
 subplot(1,4,2);
@@ -144,7 +147,8 @@ title('PCG (Left)')
 
 figure('pos',[50 1500 1350 200]); suptitle('Spiral'); % spiral
 subplot(1,4,1);
-imagesc(reshape(real(retrieved_cartesian),N1,N2));
+%imagesc(reshape(real(retrieved_cartesian),N1,N2));
+imagesc(reshape(real(Fstar(measurements)),N1,N2));
 colorbar();
 title('Cartesian')
 subplot(1,4,2);
