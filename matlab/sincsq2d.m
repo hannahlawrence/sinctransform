@@ -3,7 +3,7 @@ function wtrans=sincsq2d(ifl,a1,a2,klocs_d1,klocs_d2,q,tol,mode)
 if(nargin<1), test_sincsq2d; return; end
 
 %  
-% wtrans(j) = sum sinc^2(klocs_d1(k)-klocs_d1(j)) * sinc^2(klocs_d2(k)-klocs_d2(j)) * q(j)
+% wtrans(j) = sum sinc^2(a1(k)-klocs_d1(j)) * sinc^2(a2(k)-klocs_d2(j)) * q(j)
 %              k
 %
 % ifl = sinc convention

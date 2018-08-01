@@ -3,7 +3,7 @@ function wtrans=sinc3d(ifl,a1,a2,a3,klocs_d1,klocs_d2,klocs_d3,q,tol,mode)
 if(nargin<1), test_sinc3d; return; end
 
 %  
-% wtrans(j) = sum sinc(klocs_d1(k)-klocs_d1(j)) * sinc(klocs_d2(k)-klocs_d2(j)) * sinc(klocs_d3(k)-klocs_d3(j)) * q(j)
+% wtrans(j) = sum sinc(a1(k)-klocs_d1(j)) * sinc(a2(k)-klocs_d2(j)) * sinc(a3(k)-klocs_d3(j)) * q(j)
 %              k
 %
 % ifl = sinc convention

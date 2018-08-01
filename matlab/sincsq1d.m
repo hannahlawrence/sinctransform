@@ -3,7 +3,7 @@ function wtrans= sincsq1d(ifl,a1,klocs,q,tol,mode)
 if(nargin<1), test_sincsq1d; return; end
 
 %  
-% wtrans(j) = sum sinc^2(klocs(k)-klocs(j)) * q(j)
+% wtrans(j) = sum sinc^2(a1(k)-klocs(j)) * q(j)
 %              k
 %
 % ifl = sinc convention
