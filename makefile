@@ -6,8 +6,10 @@ CURRENT=/Users/hannah/Documents/Flatiron18/sinctransform
 CURRENT_FLAG=-I$(CURRENT)
 FFTW=/usr/local/lib
 FFTW_FLAG=-L$(FFTW)
-FINUFFT=/Users/hannah/Documents/Summer2017/Flatiron/fi2/finufft
-FINUFFT_LIB_PATH=/lib/libfinufft.a
+FINUFFT=/Users/hannah/Documents/Flatiron18/newfinufft/finufft
+#/Users/hannah/Documents/Summer2017/Flatiron/fi2/finufft
+FINUFFT_LIB_PATH=/lib-static/libfinufft.a
+#/lib/libfinufft.a
 FINUFFT_LIB=$(FINUFFT)$(FINUFFT_LIB_PATH)
 FINUFFT_HEADER_FLAG=-I$(FINUFFT)/src/
 FINUFFT_HEADER=$(FINUFFT)/src/finufft.h
