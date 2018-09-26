@@ -20,7 +20,7 @@ q=q(:);
 klocs=klocs(:);
 
 % more aggressive tolerance to compensate for repeated calls and quadrature
-newtol=max(tol/1000,1e-16);
+newtol=max(tol/1000,1e-15);
 
 rkmax=max(bsxfun(@max,zeros(size(klocs)),abs(klocs)));
 rkmax=max(rkmax,max(bsxfun(@max,zeros(size(a1)),abs(a1))));
@@ -30,7 +30,7 @@ if ifl==1
     klocs=pi*klocs;
     a1=pi*a1;
 end
-rsamp=2; % increase to impose higher accuracy; will increase runtime
+rsamp=2.0; % increase to impose higher accuracy; will increase runtime
 nx=ceil(rsamp*round(rkmax+3)); 
 
 if isequal(mode,'legendre')

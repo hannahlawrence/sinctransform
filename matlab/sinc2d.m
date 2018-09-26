@@ -31,7 +31,7 @@ if ifl==1
 end
 
 rsamp=2; % increase to impose higher accuracy; will increase runtime
-newtol=max(tol/1000,1e-16);
+newtol=max(tol/10,1e-15);
 nx=ceil(rsamp*round(rkmaxx+3));
 ny=ceil(rsamp*round(rkmaxy+3));
 
@@ -44,8 +44,9 @@ if isequal(mode,'legendre')
     allyy=d(:);
     [e,f]=ndgrid(wwx,wwy);
     allww=e(:).*f(:);
-    h_at_xxyy=finufft2d3(klocs_d1,klocs_d2,q,-1,newtol,allxx,allyy);
-    wtrans=0.25*finufft2d3(allxx,allyy,h_at_xxyy.*allww,1,newtol,a1,a2);
+    o.upsampfac=2.0; %1.25;
+    h_at_xxyy=finufft2d3(klocs_d1,klocs_d2,q,-1,newtol,allxx,allyy,o);
+    wtrans=0.25*finufft2d3(allxx,allyy,h_at_xxyy.*allww,1,newtol,a1,a2,o);
 else
 a=-1; b=1; 
 e=21; % increase (up to 60) to impose higher accuracy; will increase runtime
@@ -123,11 +124,12 @@ end
 end
 
 function test_sinc2d
-n=100; ifl=1;
+n=2000;  % 100
+ifl=1;
 klocs_d1=-10+(20*rand(n,1));
 klocs_d2=-10+(20*rand(n,1));
-a1=-10+(200*rand(n,1));
-a2=-10+(200*rand(n,1));
+a1=-10+(20*rand(n,1));  % 200
+a2=-10+(20*rand(n,1));
 q=complex(rand(1,n)*30,rand(1,n)*30);
 tic;correct=slowsinc2d(ifl,a1,a2,klocs_d1,klocs_d2,q); tt3=toc;
 precisions=[1e-2 1e-3 1e-4 1e-5 1e-6 1e-7 1e-8 1e-9 1e-10 1e-11 1e-12 1e-13 1e-14 1e-15];
@@ -135,8 +137,8 @@ for p=1:length(precisions)
     pr=precisions(p);
     tic;myresult=sinc2d(ifl,a1,a2,klocs_d1,klocs_d2,q,pr,'legendre');tt=toc;
     tic;myresult2=sinc2d(ifl,a1,a2,klocs_d1,klocs_d2,q,pr,'trap');tt2=toc;
-    err=norm(correct-myresult,2);
-    err2=norm(correct-myresult2,2);
+    err=norm(correct-myresult,2)/norm(correct);
+    err2=norm(correct-myresult2,2)/norm(correct);
     fprintf("Requested: %g Error (Leg): %g Error (Trap): %g\n", pr,err,err2);
     fprintf("              Time  (Leg): %g s (Trap): %g s (Direct): %g s\n",tt,tt2,tt3);
 end

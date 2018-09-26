@@ -21,8 +21,8 @@ FFTW=/usr/lib/x86_64-linux-gnu/
 FFTW_FLAG=-L$(FFTW)
 
 # point to the top of your finufft installation:
-#FINUFFT=../finufft/
-FINUFFT=/Users/hannah/Documents/Flatiron18/newfinufft/finufft
+FINUFFT=../finufft/
+#FINUFFT=/Users/hannah/Documents/Flatiron18/newfinufft/finufft
 #/Users/hannah/Documents/Summer2017/Flatiron/fi2/finufft
 
 #FINUFFT_LIB_PATH=/lib/libfinufft.so
