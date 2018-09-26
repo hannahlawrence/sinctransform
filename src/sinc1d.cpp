@@ -77,7 +77,7 @@ int sinc1d(int ifl,int numlocs,double *klocs_, complex<double> *q,double tol, co
 	}
 
 	// call 1 to finufft; h_at_xx will be complex
-	nufft_opts opts; finufft_default_opts(opts);
+	nufft_opts opts; finufft_default_opts(&opts);
 	complex<double>* h_at_xx=(complex<double>*)malloc(sizeof(complex<double>)*nx);
 
 	int ier1=finufft1d3(numlocs,klocs,qc,-1,newtol,nx,xx,h_at_xx,opts);
@@ -188,7 +188,7 @@ int sincsq1d(int ifl,int numlocs,double *klocs_, complex<double> *q,double tol, 
 	}
 
 	// call 1 to finufft; h_at_xx will be complex
-	nufft_opts opts; finufft_default_opts(opts);	
+	nufft_opts opts; finufft_default_opts(&opts);	
 	complex<double>* h_at_xx=(complex<double>*)malloc(sizeof(complex<double>)*2*nx);
 	int ier1=finufft1d3(numlocs,klocs,qc,-1,newtol,2*nx,xx,h_at_xx,opts);
 	if (ier1 != 0)
