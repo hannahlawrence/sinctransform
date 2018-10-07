@@ -3,6 +3,7 @@
 #include "sincutil.hpp"
 #include "directsinc.hpp"
 #include "sinctransform.hpp"
+#include <vector>
 
 int main()
 {
@@ -13,62 +14,58 @@ int main()
 	double kub=10;
 	double qlb=-10;
 	double qub=10;
-	int numlocs=5000;
+	int numlocs=400;
+	int numeval=numlocs;
 	int ifl=1;
+	int quad=1;
 	int s_err;
 	cout<<"Sinc with "<<numlocs<<" samples:\n";
 
-	double* klocs=(double*)malloc(sizeof(double)*numlocs);
-	complex<double>* q=(complex<double>*)malloc(sizeof(complex<double>)*numlocs);
-	randarr(klb,kub,numlocs,klocs);
-	randcarr(qlb,qub,numlocs,q);
+	std::vector<double> klocs(numlocs);
+	std::vector<double> a1(numlocs);
+	std::vector<complex <double>> q(numlocs);
+	randarr(klb,kub,numlocs,klocs.data());
+	randarr(klb,kub,numlocs,a1.data());
+	randcarr(qlb,qub,numlocs,q.data());
 
-	complex<double>* corr=(complex<double>*)malloc(sizeof(complex<double>)*numlocs);
+	std::vector<complex<double>> corr(numlocs);
 	start=clock();
-	directsinc1d(ifl,numlocs,klocs,q,corr,1e-14); 
+	directsinc1d(ifl,numlocs,numeval,a1.data(),klocs.data(),q.data(),corr.data()); 
 	cout<<"Direct calculation: "<<setprecision(6)<<(clock()-start)/(double) CLOCKS_PER_SEC<<" sec. \n";
 
 	for(int a=0;a<14;a++)
 	{
 		pr=precisions[a];
-		complex<double>* myout=(complex<double>*)malloc(sizeof(complex<double>)*numlocs);
+		std::vector<complex<double>> myout(numlocs);
 
 		start=clock();
-		s_err=sinc1d(ifl,numlocs,klocs,q,pr,myout);
+		s_err=sinc1d(ifl,numlocs,a1.data(),klocs.data(),q.data(),pr,myout.data(),quad);
 		cout<<"Runtime: "<<setprecision(6)<<(clock()-start)/(double) CLOCKS_PER_SEC<<" sec. ";
 
-		err=getcerr(myout,corr,numlocs);
+		err=getcerr(myout.data(),corr.data(),numeval);
 		cout<<"Requested precision: "<<pr<<" "; // Requested precision
 		cout<<"Error: "<<err<<"\n"; // Error compared to direct calculation
-		free(myout);
 	}
-	free(corr);	
 
 	cout<<"\nSincsq with "<<numlocs<<" samples:\n";
 
-	corr=(complex<double>*)malloc(sizeof(complex<double>)*numlocs);
 	start=clock();
-	directsincsq1d(ifl,numlocs,klocs,q,corr,1e-14);
+	directsincsq1d(ifl,numlocs,numeval,a1.data(),klocs.data(),q.data(),corr.data());
 	cout<<"Direct calculation: "<<setprecision(6)<<(clock()-start)/(double) CLOCKS_PER_SEC<<" sec. \n";
 
 	for(int a=0;a<14;a++)
 	{
 		pr=precisions[a];
 
-		complex<double>* myout=(complex<double>*)malloc(sizeof(complex<double>)*numlocs);
+		std::vector<complex<double>> myout(numlocs);
 
 		start=clock();
-		s_err=sincsq1d(ifl,numlocs,klocs,q,pr,myout); 
+		s_err=sincsq1d(ifl,numlocs,a1.data(),klocs.data(),q.data(),pr,myout.data(),quad); 
 		cout<<"Runtime: "<<setprecision(6)<<(clock()-start)/(double) CLOCKS_PER_SEC<<" sec. ";
 
-		err=getcerr(myout,corr,numlocs);
+		err=getcerr(myout.data(),corr.data(),numeval);
 		cout<<"Requested precision: "<<pr<<" "; // Requested precision
-		cout<<"Error: "<<err<<"\n"; // Error compared to direct calculation
-		free(myout);	
+		cout<<"Error: "<<err<<"\n"; // Error compared to direct calculation	
 	}
-
-	free(corr);
-	free(klocs);
-	free(q);
 	return s_err;
 }

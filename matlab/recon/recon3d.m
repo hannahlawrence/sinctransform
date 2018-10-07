@@ -63,7 +63,7 @@ for n=1:N % Something somewhat like the Archimedean spiral in 3d
 end
 k_d1=x(:); k_d2=y(:); k_d3=z(:);
 
-%[k_d1,k_d2,k_d3]=interleaved3d(50,10); % Another sampling option: nested shells
+[k_d1,k_d2,k_d3]=interleaved3d(50,20); % Another sampling option: nested shells
 
 %weights=autoquad3d(k_d1,k_d2,k_d3); % may be slow for large # points
 weights=ones(size(k_d1)); % benchmark

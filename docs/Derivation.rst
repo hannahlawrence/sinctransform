@@ -5,9 +5,9 @@ Recall the objective is to compute, for all :math:`i=1,\ldots m`,
 
 .. math::
 
-	\sum_{j=1}^m q_j\text{sinc}(\mathbf{k_i}-\mathbf{k_j})
+	\sum_{j=1}^m q_j\text{sinc}(\mathbf{a_i}-\mathbf{k_j})
 
-	\sum_{j=1}^m q_j\text{sinc}^2(\mathbf{k_i}-\mathbf{k_j})
+	\sum_{j=1}^m q_j\text{sinc}^2(\mathbf{a_i}-\mathbf{k_j})
 
 We will exploit the fact that the the FINUFFT library quickly computes expressions of the form
 
@@ -71,13 +71,13 @@ Similarly
 
 	=\sum_{j=1}^mq_j\text{sinc}^2(\mathbf{k_i}-\mathbf{k_j})
 
-So, the desired quantities are :math:`(\text{sinc} \ast f)(\mathbf{k_i})` and :math:`(\text{sinc}^2 \ast f)(\mathbf{k_i})`. But by the convolution theorem:
+So, the desired quantities are :math:`(\text{sinc} \ast f)(\mathbf{a_i})` and :math:`(\text{sinc}^2 \ast f)(\mathbf{a_i})`. But by the convolution theorem:
 
 .. math::
 
-	(\text{sinc} \ast f)(\mathbf{k_i})=\mathcal{F}^{-1}(\mathcal{F}(\text{sinc})\mathcal{F}(f))(\mathbf{k_i})
+	(\text{sinc} \ast f)(\mathbf{a_i})=\mathcal{F}^{-1}(\mathcal{F}(\text{sinc})\mathcal{F}(f))(\mathbf{a_i})
 
-	(\text{sinc}^2 \ast f)(\mathbf{k_i})=\mathcal{F}^{-1}(\mathcal{F}(\text{sinc}^2)\mathcal{F}(f))(\mathbf{k_i})
+	(\text{sinc}^2 \ast f)(\mathbf{a_i})=\mathcal{F}^{-1}(\mathcal{F}(\text{sinc}^2)\mathcal{F}(f))(\mathbf{a_i})
 	
 Luckily, :math:`\mathcal{F}(\text{sinc})` and :math:`\mathcal{F}(\text{sinc}^2)` take simple forms, which are derived below.
 
@@ -218,6 +218,6 @@ In 2 and 3 dimensions, the constant :math:`\frac{1}{2}` changes to :math:`\frac{
 
 Again, in 2 and 3 dimensions, the constant :math:`\frac{1}{4}` changes to :math:`\frac{1}{8}` and :math:`\frac{1}{16}`, respectively, and integration is multidimensional.
 
-In each case, there are two main tasks: computing the inner summation, and computing the outer (possibly multidimensional) integral. But the inner summation is exactly a discrete (nonuniform) Fourier transform, and is computed with the finufft library. The outer integral again takes the form of of a Fourier transform (in the other direction), but since we want the exact integral, Legendre-Gauss quadrature weights are used to weight the integrand before again applying the finufft library. Note that in the case of :math:`\text{sinc}^2`, the integrand is only piecewise continuous, so the quadrature points are treated accordingly.
+In each case, there are two main tasks: computing the inner summation, and computing the outer (possibly multidimensional) integral. But the inner summation is exactly a discrete (nonuniform) Fourier transform, and is computed with the finufft library. The outer integral again takes the form of of a Fourier transform (in the other direction), but since we want the exact integral, quadrature weights (either Gauss-Legendre of corrected trapezoidal, from Kapur-Rokhlin) are used to weight the integrand before again applying the finufft library. Note that in the case of :math:`\text{sinc}^2`, the integrand is only piecewise continuous, so the quadrature points are treated accordingly.
 
 

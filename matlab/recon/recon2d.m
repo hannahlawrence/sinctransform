@@ -37,7 +37,7 @@ k_d2=d(:); % One could use finufft types 2 and 1 here, but for clarity
 measurements=finufft2d3(unif_d1,unif_d2,f,-1,1e-10,2*pi*k_d1,2*pi*k_d2); 
 retrieved_cartesian=(1/(N1*N2))*finufft2d3(k_d1,k_d2,measurements,1,1e-15,2*pi*unif_d1,2*pi*unif_d2);
 
-%%%% Radial campling in k-space
+%%%% Radial sampling in k-space
 function x=polarx(r,th)
     x=r*cos(th);
 end
@@ -46,6 +46,7 @@ function y=polary(r,th)
 end
 r=45; 
 numsectors=ceil(2*(2*pi*r+1)+1);
+numsectors=round(numsectors/2); % TO DELETE
 theta=2*pi/numsectors;
 thetavals=0:theta:(2*pi);
 rvals=0:(r*length(thetavals))/(N1*N2):r;
@@ -66,6 +67,8 @@ measurements=rF(f);
 retrieved_radial_weights=rFstar(measurements.*weights);
 retrieved_radial_weights=retrieved_radial_weights/(N1*N2); % Method 1 [1]
 
+direct_radial=rFstar(measurements)/(N1*N2);
+
 % Preconditioning Method 1 (Right)
 sqw=sqrt(weights);
     function vec=rmat(x)
@@ -85,9 +88,10 @@ retrieved_radial_PCGleft=pcg(@rlmat,rFstar(weights.*measurements));
 
 %%%% Archimedean Spiral Sampling (see [1])
 N=length(unif_d1);
+N=round(N*2/3); % TO RETURN
 x=zeros(N,1);
 y=zeros(N,1);
-kmax=64;
+kmax=50; %64; %TO RETURN
 for n=1:N
     val=kmax*sqrt(n/N);
     x(n)=val*cos(3*pi*val);
@@ -106,6 +110,8 @@ weights=autoquad2d(k_d1,k_d2); %quadrature weights
 measurements=F(f);
 retrieved_spiral_weights=Fstar(weights.*measurements);
 retrieved_spiral_weights=retrieved_spiral_weights/(N1*N2); % Method 1 [1]
+
+direct_spiral=Fstar(F(f))/(N1*N2);
 
 % Preconditioning Method 1 (Right)
 sqw=sqrt(weights);
@@ -163,5 +169,11 @@ subplot(1,4,4);
 imagesc(reshape(real(retrieved_spiral_PCGleft),N1,N2));
 colorbar();
 title('PCG (Left)')
+
+figure('pos',[455 74 494 183]); suptitle('Direct Application of F*')
+subplot(1,2,1);
+imagesc(reshape(real(direct_radial),N1,N2)); title('Radial')
+subplot(1,2,2);
+imagesc(reshape(real(direct_spiral),N1,N2)); title('Spiral')
 
 end

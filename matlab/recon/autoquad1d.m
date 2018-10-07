@@ -6,4 +6,4 @@ function wvec=autoquad1d(klocs)
 
 ifl=1;
 q=ones(size(klocs));
-wvec=1./sincsq1d(ifl,klocs,q,1e-16);
+wvec=1./sincsq1d(ifl,klocs,klocs,q,1e-5,'legendre');

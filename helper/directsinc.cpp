@@ -8,17 +8,17 @@
 // macro to handle the origin
 #define SINC(x) ((abs(x)<1e-8) ? 1.0 : sin(x)/x)
 
-void directsinc1d(int ifl,int numlocs,double *klocs, complex<double>* q,complex<double> *ans, double pr)
+void directsinc1d(int ifl,int numlocs,int numeval,double *a1,double *klocs, complex<double>* q,complex<double> *ans)
 // alex clarified version
 {
 	double pi=4*atan(1);
 	double diff;
 	// init. to zeros
-	for(int a=0;a<numlocs;a++)
+	for(int a=0;a<numeval;a++)
 	  ans[a]=0.0;
-	for(int b=0;b<numlocs;b++) {
+	for(int b=0;b<numeval;b++) {
 	  for(int a=0;a<numlocs;a++) {
-	    diff=klocs[b]-klocs[a];
+	    diff=a1[b]-klocs[a];
 	    if(ifl==1)
 	      diff=diff*pi;
 	    ans[b] += q[a] * SINC(diff);   // note macro above, no pr needed	
@@ -26,247 +26,130 @@ void directsinc1d(int ifl,int numlocs,double *klocs, complex<double>* q,complex<
 	}
 }
 
-void directsincsq1d(int ifl, int numlocs,double *klocs, complex<double>* q,complex<double> *ans, double pr)
+void directsincsq1d(int ifl, int numlocs,int numeval,double *a1,double *klocs, complex<double>* q,complex<double> *ans)
 {
 	double pi=4*atan(1);
-	double diff;
+	double diff,x;
 	// init. to zeros
-	for(int a=0;a<numlocs;a++)
-	{
+	for(int a=0;a<numeval;a++)
 		ans[a]=0;
-	}
-	for(int b=0;b<numlocs;b++)
+	for(int b=0;b<numeval;b++)
 	{
 		for(int a=0;a<numlocs;a++)
 		{
-			if(equals(a,b,1e-5) || equals(klocs[a],klocs[b],pr))
-			{
-				ans[b]=ans[b]+q[a];
-			}
-			else
-			{
-				diff=klocs[b]-klocs[a];
-				if(ifl==1)
-				{
-					diff=diff*pi;
-				}
-				// pow(x,2) is slow - replace by set x; do x*x
-				ans[b]=ans[b]+(q[a]*pow(sin(diff)/diff,2));
-			}
+			diff=a1[b]-klocs[a];
+			if(ifl==1)
+				diff=diff*pi;
+			x=SINC(diff);
+			ans[b] += q[a] * (x*x);
 		}
 	}
 }
 
 // Direct calculations of sinc transformations in 2 dimensions
 
-void directsinc2d(int ifl,int numlocs,double *klocs_d1,double *klocs_d2, complex<double>* q, complex<double> *ans, double pr)
+void directsinc2d(int ifl,int numlocs,int numeval,double *a1,double *a2,double *klocs_d1,double *klocs_d2, complex<double>* q, complex<double> *ans)
 {
 	double pi=4*atan(1);
-	double diff_d1,diff_d2,a1,a2;
+	double diff_d1,diff_d2;
 	// init. to zeros
-	for(int a=0;a<numlocs;a++)
-	{
+	for(int a=0;a<numeval;a++)
 		ans[a]=0;
-	}
-	for(int b=0;b<numlocs;b++)
+	for(int b=0;b<numeval;b++)
 	{
 		for(int a=0;a<numlocs;a++)
 		{
-			if(equals(a,b,1e-5) || equals(klocs_d1[a],klocs_d1[b],pr) || equals(klocs_d2[a],klocs_d2[b],pr))
+			diff_d1=a1[b]-klocs_d1[a];
+			diff_d2=a2[b]-klocs_d2[a];
+			if(ifl==1)
 			{
-				ans[b]=ans[b]+q[a];
+				diff_d1=diff_d1*pi;
+				diff_d2=diff_d2*pi;
 			}
-			else
-			{
-				diff_d1=klocs_d1[b]-klocs_d1[a];
-				diff_d2=klocs_d2[b]-klocs_d2[a];
-				if(ifl==1)
-				{
-					diff_d1=diff_d1*pi;
-					diff_d2=diff_d2*pi;
-				}
-				if(diff_d1==0)
-				{
-					a1=1;
-				}
-				else
-				{
-					a1=sin(diff_d1)/diff_d1;
-				}
-				if(diff_d2==0)
-				{
-					a2=1;
-				}
-				else
-				{
-					a2=sin(diff_d2)/diff_d2;
-				}
-				ans[b]=ans[b]+(q[a]*a1*a2);
-			}
+			ans[b] += q[a]*SINC(diff_d1)*SINC(diff_d2);
 		}
 	}
 }
-void directsincsq2d(int ifl, int numlocs,double *klocs_d1,double *klocs_d2, complex<double>* q, complex<double> *ans, double pr)
+void directsincsq2d(int ifl, int numlocs,int numeval,double *a1,double *a2,double *klocs_d1,double *klocs_d2, complex<double>* q, complex<double> *ans)
 {
 	double pi=4*atan(1);
-	double diff_d1,diff_d2,a1,a2;
+	double diff_d1,diff_d2,x1,x2;
 	// init. to zeros
-	for(int a=0;a<numlocs;a++)
-	{
+	for(int a=0;a<numeval;a++)
 		ans[a]=0;
-	}
-	for(int b=0;b<numlocs;b++)
+	for(int b=0;b<numeval;b++)
 	{
 		for(int a=0;a<numlocs;a++)
 		{
-			if(equals(a,b,1e-5) || equals(klocs_d1[a],klocs_d1[b],pr) || equals(klocs_d2[a],klocs_d2[b],pr))
+			diff_d1=a1[b]-klocs_d1[a];
+			diff_d2=a2[b]-klocs_d2[a];
+			if(ifl==1)
 			{
-				ans[b]=ans[b]+q[a];
+				diff_d1=diff_d1*pi;
+				diff_d2=diff_d2*pi;
 			}
-			else
-			{
-				diff_d1=klocs_d1[b]-klocs_d1[a];
-				diff_d2=klocs_d2[b]-klocs_d2[a];
-				if(ifl==1)
-				{
-					diff_d1=diff_d1*pi;
-					diff_d2=diff_d2*pi;
-				}
-				if(diff_d1==0)
-				{
-					a1=1;
-				}
-				else
-				{
-					a1=pow(sin(diff_d1)/diff_d1,2);
-				}
-				if(diff_d2==0)
-				{
-					a2=1;
-				}
-				else
-				{
-					a2=pow(sin(diff_d2)/diff_d2,2);
-				}
-				ans[b]=ans[b]+(q[a]*a1*a2);
-			}
+			x1=SINC(diff_d1);
+			x2=SINC(diff_d2);
+			ans[b] += q[a]*x1*x1*x2*x2;
 		}
 	}
 }
 
 // Direct calculations of sinc transformations in 3 dimensions
 
-void directsinc3d(int ifl,int numlocs,double *klocs_d1,double *klocs_d2,double *klocs_d3, complex<double>* q,complex<double> *ans, double pr)
+void directsinc3d(int ifl,int numlocs,int numeval,double *a1,double *a2,double *a3,double *klocs_d1,double *klocs_d2,double *klocs_d3, complex<double>* q,complex<double> *ans)
 {
 	double pi=4*atan(1);
-	double diff_d1,diff_d2,diff_d3,a1,a2,a3;
+	double diff_d1,diff_d2,diff_d3;
 	// init. to zeros
-	for(int a=0;a<numlocs;a++)
+	for(int a=0;a<numeval;a++)
 	{
 		ans[a]=0;
 	}
-	for(int b=0;b<numlocs;b++)
+	for(int b=0;b<numeval;b++)
 	{
 		for(int a=0;a<numlocs;a++)
 		{
-			if(equals(a,b,1e-5) || equals(klocs_d1[a],klocs_d1[b],pr) || equals(klocs_d2[a],klocs_d2[b],pr) || equals(klocs_d3[a],klocs_d3[b],pr))
+			diff_d1=a1[b]-klocs_d1[a];
+			diff_d2=a2[b]-klocs_d2[a];
+			diff_d3=a3[b]-klocs_d3[a];
+			if(ifl==1)
 			{
-				ans[b]=ans[b]+q[a];
+				diff_d1=diff_d1*pi;
+				diff_d2=diff_d2*pi;
+				diff_d3=diff_d3*pi;
 			}
-			else
-			{
-				diff_d1=klocs_d1[b]-klocs_d1[a];
-				diff_d2=klocs_d2[b]-klocs_d2[a];
-				diff_d3=klocs_d3[b]-klocs_d3[a];
-				if(ifl==1)
-				{
-					diff_d1=diff_d1*pi;
-					diff_d2=diff_d2*pi;
-					diff_d3=diff_d3*pi;
-				}
-				if(diff_d1==0)
-				{
-					a1=1;
-				}
-				else
-				{
-					a1=sin(diff_d1)/diff_d1;
-				}
-				if(diff_d2==0)
-				{
-					a2=1;
-				}
-				else
-				{
-					a2=sin(diff_d2)/diff_d2;
-				}
-				if(diff_d3==0)
-				{
-					a3=1;
-				}
-				else
-				{
-					a3=sin(diff_d3)/diff_d3;
-				}
-				ans[b]=ans[b]+(q[a]*a1*a2*a3);
-			}
+			ans[b] += q[a]*SINC(diff_d1)*SINC(diff_d2)*SINC(diff_d3);
 		}
 	}
 }
-void directsincsq3d(int ifl, int numlocs,double *klocs_d1,double *klocs_d2,double *klocs_d3, complex<double>* q,complex<double> *ans, double pr)
+
+void directsincsq3d(int ifl, int numlocs,int numeval,double *a1,double *a2,double *a3,double *klocs_d1,double *klocs_d2,double *klocs_d3, complex<double>* q,complex<double> *ans)
 {
 	double pi=4*atan(1);
-	double diff_d1,diff_d2,diff_d3,a1,a2,a3;
+	double diff_d1,diff_d2,diff_d3,x1,x2,x3;
 	// init. to zeros
-	for(int a=0;a<numlocs;a++)
+	for(int a=0;a<numeval;a++)
 	{
 		ans[a]=0;
 	}
-	for(int b=0;b<numlocs;b++)
+	for(int b=0;b<numeval;b++)
 	{
 		for(int a=0;a<numlocs;a++)
 		{
-			if(equals(a,b,1e-5) || equals(klocs_d1[a],klocs_d1[b],pr) || equals(klocs_d2[a],klocs_d2[b],pr) || equals(klocs_d3[a],klocs_d3[b],pr))
+			diff_d1=a1[b]-klocs_d1[a];
+			diff_d2=a2[b]-klocs_d2[a];
+			diff_d3=a3[b]-klocs_d3[a];
+			if(ifl==1)
 			{
-				ans[b]=ans[b]+q[a];
+				diff_d1=diff_d1*pi;
+				diff_d2=diff_d2*pi;
+				diff_d3=diff_d3*pi;
 			}
-			else
-			{
-				diff_d1=klocs_d1[b]-klocs_d1[a];
-				diff_d2=klocs_d2[b]-klocs_d2[a];
-				diff_d3=klocs_d3[b]-klocs_d3[a];
-				if(ifl==1)
-				{
-					diff_d1=diff_d1*pi;
-					diff_d2=diff_d2*pi;
-					diff_d3=diff_d3*pi;
-				}
-				if(diff_d1==0)
-				{
-					a1=1;
-				}
-				else
-				{
-					a1=pow(sin(diff_d1)/diff_d1,2);
-				}
-				if(diff_d2==0)
-				{
-					a2=1;
-				}
-				else
-				{
-					a2=pow(sin(diff_d2)/diff_d2,2);
-				}
-				if(diff_d3==0)
-				{
-					a3=1;
-				}
-				else
-				{
-					a3=pow(sin(diff_d3)/diff_d3,2);
-				}
-				ans[b]=ans[b]+(q[a]*a1*a2*a3);
-			}
+			x1=SINC(diff_d1);
+			x2=SINC(diff_d2);
+			x3=SINC(diff_d3);
+			ans[b] += q[a]*x1*x1*x2*x2*x3*x3;
 		}
 	}
 }

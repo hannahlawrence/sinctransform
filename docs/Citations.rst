@@ -26,13 +26,20 @@ Computation of Gauss-Legendre quadrature weights via fastGL.cpp and fastGL.hpp:
 Iteration-free computation of Gauss-Legendre quadrature nodes and weights,
 SIAM Journal on Scientific Computing, Volume 36, Number 3, 2014, pages A1008-1026.
 
+Corrected trapezoidal quadrature weights:
+
+[3] Sharad Kapur & Vladimir Rokhlin (1997).
+High-Order Corrected Trapezoidal Quadrature Rules for Singular Functions, 
+SIAM Journal of Numerical Analysis, Vol. 34, No. 4, pp. 1331–1356
+
+
 FINUFFT library:
 
-[3] (coming soon)
+[4] (coming soon)
 
 3d k-space sampling (for 3d reconstruction example):
 
-[4] Park J, Shin T, Yoon SH, Goo JM, Park J-Y. A radial sampling strategy for uniform k-space coverage with retrospective respiratory gating in 3D ultrashort-echo-time lung imaging. NMR in biomedicine. 2016;29(5):576-587. doi:10.1002/nbm.3494.
+[5] Park J, Shin T, Yoon SH, Goo JM, Park J-Y. A radial sampling strategy for uniform k-space coverage with retrospective respiratory gating in 3D ultrashort-echo-time lung imaging. NMR in biomedicine. 2016;29(5):576-587. doi:10.1002/nbm.3494.
 
 Licenses
 ---------

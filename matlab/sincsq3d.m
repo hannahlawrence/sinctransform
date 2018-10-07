@@ -18,7 +18,13 @@ if(nargin<1), test_sincsq3d; return; end
 % q = sample strengths
 % tol = requested precision
 
-newtol=max(tol/1000,1e-16);
+% ensure vector inputs are correct size
+q=q(:).';
+klocs_d1=klocs_d1(:);
+klocs_d2=klocs_d2(:);
+klocs_d3=klocs_d3(:);
+
+newtol=max(tol,1e-16);
 
 rkmaxx=max(bsxfun(@max,zeros(size(klocs_d1)),abs(klocs_d1)));
 rkmaxx=max(rkmaxx,max(bsxfun(@max,zeros(size(a1)),abs(a1))));
@@ -38,12 +44,12 @@ if ifl==1
     a2=pi*a2;
     a3=pi*a3;
 end
+
+if isequal(mode,'legendre')
 rsamp=2; % increase to impose higher accuracy; will increase runtime
 nx=ceil(rsamp*round(rkmaxx+3)); 
 ny=ceil(rsamp*round(rkmaxy+3));
 nz=ceil(rsamp*round(rkmaxz+3));
-
-if isequal(mode,'legendre')
 [xx,wwx]=lgwt(nx,-1,1);
 [yy,wwy]=lgwt(ny,-1,1);
 [zz,wwz]=lgwt(nz,-1,1);
@@ -63,11 +69,14 @@ allzz=e(:);
 [f,g,h]=ndgrid(wwx,wwy,wwz);
 allww=f(:).*g(:).*h(:);
 h_at_xxyyzz=finufft3d3(klocs_d1,klocs_d2,klocs_d3,q,-1,newtol,allxx,allyy,allzz);
-wtrans=(1/64)*finufft3d3(allxx,allyy,allzz,h_at_xxyyzz.*allww,1,newtol,klocs_d1,klocs_d2,klocs_d3);  
+wtrans=(1/64)*finufft3d3(allxx,allyy,allzz,h_at_xxyyzz.*allww,1,newtol,a1,a2,a3);  
 else
-
+rsamp=3; % increase to impose higher accuracy; will increase runtime
+nx=ceil(rsamp*round(rkmaxx+3)); 
+ny=ceil(rsamp*round(rkmaxy+3));
+nz=ceil(rsamp*round(rkmaxz+3));
 a=-2; b=0;
-e=21; % increase (up to 60) to impose higher accuracy; will increase runtime
+e=25; % increase (up to 60) to impose higher accuracy
 if mod(nx,2)~=0; nx=nx+1; end % ensure even so that 0 is a quadrature point
 n=nx; h=(b-a)/n;
 xx=a-(e*h):h:b+(n+e)*h; xx=xx(:);
@@ -224,10 +233,12 @@ end
 if isreal(q)
     wtrans=real(wtrans);
 end
+wtrans=wtrans(:);
 end
 
 function test_sincsq3d
-n=10; ifl=0;
+n=10000; ifl=0;
+numeval=100;
 klocs_d1=-pi+(2*pi*rand(n,1));
 klocs_d2=-pi+(2*pi*rand(n,1));
 klocs_d3=-pi+(2*pi*rand(n,1));
@@ -235,14 +246,14 @@ a1=rand(n,1);
 a2=rand(n,1);
 a3=-pi+(2*pi*rand(n,1));
 q=complex(rand(1,n)*30,rand(1,n)*30);
-tic;correct=slowsincsq3d(ifl,a1,a2,a3,klocs_d1,klocs_d2,klocs_d3,q);t3=toc;
+tic;correct=superslowsincsq3d(ifl,a1(1:numeval),a2(1:numeval),a3(1:numeval),klocs_d1,klocs_d2,klocs_d3,q);t3=toc;
 precisions=[1e-2 1e-3 1e-4 1e-5 1e-6 1e-7 1e-8 1e-9 1e-10 1e-11 1e-12 1e-13 1e-14 1e-15];
 for p=1:length(precisions)
     pr=precisions(p);
     tic;myresult=sincsq3d(ifl,a1,a2,a3,klocs_d1,klocs_d2,klocs_d3,q,pr,'legendre');t1=toc;
     tic;myresult2=sincsq3d(ifl,a1,a2,a3,klocs_d1,klocs_d2,klocs_d3,q,pr,'trap');t2=toc;
-    err1=norm(correct-myresult,2);
-    err2=norm(correct-myresult2,2);
+    err1=norm(correct-myresult(1:numeval),2)/norm(correct,2);
+    err2=norm(correct-myresult2(1:numeval),2)/norm(correct,2);
     fprintf("Requested: %g Error (Leg): %g (Trap): %g\n", pr, err1,err2);
     fprintf("              Time  (Leg): %g s (Trap): %g s (Direct): %g s\n",t1,t2,t3);
 
@@ -277,6 +288,7 @@ function val=sinc(x)
 end
 
 function correct=slowsincsq3d(ifl,a1,a2,a3,klocs_d1,klocs_d2,klocs_d3,q)
+    q=q(:).';
     [a1,b1]=ndgrid(a1,klocs_d1);
     [a2,b2]=ndgrid(a2,klocs_d2);
     [a3,b3]=ndgrid(a3,klocs_d3);
