@@ -56,21 +56,21 @@ Then
 
 .. math::
 
-	(\text{sinc} \ast f)(\mathbf{k_i})=\int_{-\infty}^{\infty}\text{sinc}(\mathbf{k_i}-\mathbf{k})f(\mathbf{k})d\mathbf{k}
+	(\text{sinc} \ast f)(\mathbf{a_i})=\int_{-\infty}^{\infty}\text{sinc}(\mathbf{a_i}-\mathbf{k})f(\mathbf{k})d\mathbf{k}
 
-	=\sum_{j=1}^{m}q_j\int_{-\infty}^{\infty}\text{sinc}(\mathbf{k_i}-\mathbf{k})\delta(\mathbf{k}-\mathbf{k_j})d\mathbf{k}
+	=\sum_{j=1}^{m}q_j\int_{-\infty}^{\infty}\text{sinc}(\mathbf{a_i}-\mathbf{k})\delta(\mathbf{k}-\mathbf{k_j})d\mathbf{k}
 
-	=\sum_{j=1}^m q_j\text{sinc}(\mathbf{k_i}-\mathbf{k_j})
+	=\sum_{j=1}^m q_j\text{sinc}(\mathbf{a_i}-\mathbf{k_j})
 
 Similarly
 
 .. math::
 
-	(\text{sinc}^2 \ast f)(\mathbf{k_i})=\int_{-\infty}^{\infty}\text{sinc}^2(\mathbf{k_i}-\mathbf{k})f(\mathbf{k})d\mathbf{k}
+	(\text{sinc}^2 \ast f)(\mathbf{a_i})=\int_{-\infty}^{\infty}\text{sinc}^2(\mathbf{a_i}-\mathbf{k})f(\mathbf{k})d\mathbf{k}
 
-	=\sum_{j=1}^{m}q_j\int_{-\infty}^{\infty}\text{sinc}^2(\mathbf{k_i}-\mathbf{k})\delta(\mathbf{k}-\mathbf{k_j})d\mathbf{k}
+	=\sum_{j=1}^{m}q_j\int_{-\infty}^{\infty}\text{sinc}^2(\mathbf{a_i}-\mathbf{k})\delta(\mathbf{k}-\mathbf{k_j})d\mathbf{k}
 
-	=\sum_{j=1}^mq_j\text{sinc}^2(\mathbf{k_i}-\mathbf{k_j})
+	=\sum_{j=1}^mq_j\text{sinc}^2(\mathbf{a_i}-\mathbf{k_j})
 
 So, the desired quantities are :math:`(\text{sinc} \ast f)(\mathbf{a_i})` and :math:`(\text{sinc}^2 \ast f)(\mathbf{a_i})`. But by the convolution theorem:
 
