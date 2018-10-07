@@ -1,7 +1,8 @@
+..  _Quadrature:
 Quadrature
 =========================================
 
-There are two built-in quadrature options when approximating the final integral (see `Derivation`_ page): Gauss-Legendre [2], and corrected trapezoidal quadrature [3]. The choice is specified by the "quad" input parameter to each functon. The corrected trapezoidal rule is faster, particularly for inputs requiring many quadrature points (i.e. with high-valued :math:`k_i` or :math:`a_i`) with high requested precision, and is thus recommended.
+There are two built-in quadrature options when approximating the final integral (see :ref:`Derivation` page): Gauss-Legendre [2], and corrected trapezoidal quadrature [3]. The choice is specified by the "quad" input parameter to each functon. The corrected trapezoidal rule is faster, particularly for inputs requiring many quadrature points (i.e. with high-valued :math:`k_i` or :math:`a_i`) with high requested precision, and is thus recommended.
 
 Comparison of Methods
 -----------------------
