@@ -239,7 +239,7 @@ int sinc2d(int ifl,int numlocs,double *a1_,double *a2_,double *klocs_d1_,double 
 		double translationy=(DU1y-(Ly/actual_unif_spacey));
 
 		// Make call to finufft1d1
-		nufft_opts opts; finufft_default_opts(opts);
+		nufft_opts opts; finufft_default_opts(&opts);
 
 		std::vector<complex<double>> h_at_xxyy(msx*msy); // length?
 		
@@ -409,7 +409,7 @@ int sincsq2d(int ifl,int numlocs,double *a1_,double *a2_,double *klocs_d1_,doubl
 				counter++;
 			}
 		}
-		nufft_opts opts; finufft_default_opts(opts);
+		nufft_opts opts; finufft_default_opts(&opts);
 		if (newtol<1e-9)
 		{
 			opts.upsampfac=2;

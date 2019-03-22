@@ -302,7 +302,7 @@ int sinc3d(int ifl,int numlocs,double *a1_,double *a2_,double *a3_,double *klocs
 		double translationz=(DU1z-(Lz/actual_unif_spacez));
 
 		// Make call to finufft1d1
-		nufft_opts opts; finufft_default_opts(opts);
+		nufft_opts opts; finufft_default_opts(&opts);
 		if (newtol<1e-9)
 		{
 			opts.upsampfac=2;
@@ -521,7 +521,7 @@ int sincsq3d(int ifl,int numlocs,double *a1_,double *a2_,double *a3_,double *klo
 			}
 		}
 
-		nufft_opts opts; finufft_default_opts(opts);
+		nufft_opts opts; finufft_default_opts(&opts);
 		//h_at_xx will be complex
 		std::vector<complex <double>> h_at_xxyyzz(8*nx*ny*nz);
 		int ier1=finufft3d3(numlocs,klocs_d1.data(),klocs_d2.data(),klocs_d3.data(),qc.data(),-1,newtol,8*nx*ny*nz,allxx.data(),allyy.data(),allzz.data(),h_at_xxyyzz.data(),opts);

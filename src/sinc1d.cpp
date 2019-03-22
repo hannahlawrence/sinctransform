@@ -183,7 +183,7 @@ int sinc1d(int ifl,int numlocs,double *a1_,double *klocs_, complex<double> *q,do
 		double translation=(DU1-(L/actual_unif_space));
 
 		// Make call to finufft1d1
-		nufft_opts opts; finufft_default_opts(opts);
+		nufft_opts opts; finufft_default_opts(&opts);
 		std::vector<complex<double>> h_at_xx(ms);
 		complex<double> icomp=-1;
 		icomp=sqrt(icomp);
@@ -300,7 +300,7 @@ int sincsq1d(int ifl,int numlocs,double *a1_,double *klocs_, complex<double> *q,
 		}
 
 		// call 1 to finufft; h_at_xx will be complex
-		nufft_opts opts; finufft_default_opts(opts);
+		nufft_opts opts; finufft_default_opts(&opts);
 		if (newtol<1e-9)
 		{
 			opts.upsampfac=2;
