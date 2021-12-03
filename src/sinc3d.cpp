@@ -110,7 +110,8 @@ int sinc3d(int ifl,int numlocs,double *klocs_d1_,double *klocs_d2_,double *klocs
 			}
 		}
 	}
-	nufft_opts opts; finufft_default_opts(&opts);
+	nufft_opts* opts = new nufft_opts;
+        finufft_default_opts(opts);
 	//h_at_xx will be complex
 	complex<double>* h_at_xxyyzz=(complex<double>*)malloc(sizeof(complex<double>)*nx*ny*nz);
 	int ier1=finufft3d3(numlocs,klocs_d1,klocs_d2,klocs_d3,qc,-1,newtol,nx*ny*nz,allxx,allyy,allzz,h_at_xxyyzz,opts);
@@ -281,7 +282,8 @@ int sincsq3d(int ifl,int numlocs,double *klocs_d1_,double *klocs_d2_,double *klo
 		}
 	}
 
-	nufft_opts opts; finufft_default_opts(&opts);
+	nufft_opts* opts = new nufft_opts;
+        finufft_default_opts(opts);
 	//h_at_xx will be complex
 	complex<double>* h_at_xxyyzz=(complex<double>*)malloc(sizeof(complex<double>)*8*nx*ny*nz);
 	int ier1=finufft3d3(numlocs,klocs_d1,klocs_d2,klocs_d3,qc,-1,newtol,8*nx*ny*nz,allxx,allyy,allzz,h_at_xxyyzz,opts);
