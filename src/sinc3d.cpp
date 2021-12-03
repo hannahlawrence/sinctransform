@@ -31,7 +31,7 @@ int sinc3d(int ifl,int numlocs,double *klocs_d1_,double *klocs_d2_,double *klocs
 		Other: error code, as returned by finufft (see finufft documentation)
 	*/
 	double pi=4*atan(1); 
-	double lowesttol=1e-16; // best precision that finufft can take?
+	double lowesttol=1e-15; // best precision that finufft can take?
 	double newtol=(tol/1000 > lowesttol) ? tol/1000 : lowesttol;
 	float rkmaxx=0;
 	float rkmaxy=0;
@@ -172,7 +172,7 @@ int sincsq3d(int ifl,int numlocs,double *klocs_d1_,double *klocs_d2_,double *klo
 		Other: error code, as returned by finufft (see finufft documentation)
 	*/
 	double pi=4*atan(1); 
-	double lowesttol=1e-16; // best precision that finufft can take?
+	double lowesttol=1e-15; // best precision that finufft can take?
 	double newtol=(tol/1000 > lowesttol) ? tol/1000 : lowesttol;
 	float rkmaxx=0;
 	float rkmaxy=0;

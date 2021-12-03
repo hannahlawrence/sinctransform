@@ -31,7 +31,7 @@ int sinc1d(int ifl,int numlocs,double *klocs_, complex<double> *q,double tol, co
 		Other: error code, as returned by finufft (see finufft documentation)
 	*/
 	double pi=4*atan(1); 
-	double lowesttol=1e-16; //best precision that finufft can take
+	double lowesttol=1e-15; //best precision that finufft can take
 	double newtol=(tol/1000 > lowesttol) ? tol/1000 : lowesttol;
 
 	double *klocs=(double*)malloc(sizeof(double)*numlocs);
@@ -138,7 +138,7 @@ int sincsq1d(int ifl,int numlocs,double *klocs_, complex<double> *q,double tol, 
 		Other: error code, as returned by finufft (see finufft documentation)
 	*/
 	double pi=4*atan(1);
-	double lowesttol=1e-16; //hopefully 1e-16, which is best precision that finufft can take?
+	double lowesttol=1e-15; //hopefully 1e-16, which is best precision that finufft can take?
 	double newtol=(tol/1000 > lowesttol) ? tol/1000 : lowesttol;
 
 	double *klocs=(double*)malloc(sizeof(double)*numlocs);

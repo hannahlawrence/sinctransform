@@ -7,7 +7,8 @@
 int main()
 {
 	cout<<"---Testing: 3D---\n\n";
-	double precisions[]={1e-2, 1e-3, 1e-4, 1e-5, 1e-6, 1e-7, 1e-8, 1e-9, 1e-10, 1e-11, 1e-12, 1e-13, 1e-14, 1e-15};
+	double precisions[]={1e-2, 1e-3, 1e-4, 1e-5, 1e-6, 1e-7, 1e-8, 1e-9, 1e-10, 1e-11, 1e-12};
+        int nprec = 11;
 	double pr,err,start;
 	double klb=-1;
 	double kub=1;
@@ -33,7 +34,7 @@ int main()
 	directsinc3d(ifl,numlocs,klocs_d1,klocs_d2,klocs_d3,q,corr,1e-14); 
 	cout<<"Direct calculation: "<<setprecision(6)<<(clock()-start)/(double) CLOCKS_PER_SEC<<" sec. \n";
 
-	for(int a=0;a<14;a++)
+	for(int a=0;a<nprec;a++)
 	{
 		pr=precisions[a];		
 
@@ -57,7 +58,7 @@ int main()
 	directsincsq3d(ifl,numlocs,klocs_d1,klocs_d2,klocs_d3,q,corr,1e-14); 
 	cout<<"Direct calculation: "<<setprecision(6)<<(clock()-start)/(double) CLOCKS_PER_SEC<<" sec. \n";
 
-	for(int a=0;a<14;a++)
+	for(int a=0;a<nprec;a++)
 	{
 		pr=precisions[a];
 
