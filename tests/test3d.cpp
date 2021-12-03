@@ -1,5 +1,6 @@
 #include <iostream>
 #include <iomanip>
+#include <chrono>
 #include "sincutil.hpp"
 #include "directsinc.hpp"
 #include "sinctransform.hpp"
@@ -9,7 +10,7 @@ int main()
 	cout<<"---Testing: 3D---\n\n";
 	double precisions[]={1e-2, 1e-3, 1e-4, 1e-5, 1e-6, 1e-7, 1e-8, 1e-9, 1e-10, 1e-11, 1e-12};
         int nprec = 11;
-	double pr,err,start;
+	double pr,err;
 	double klb=-1;
 	double kub=1;
 	double qlb=-1;
@@ -30,18 +31,22 @@ int main()
 	randcarr(qlb,qub,numlocs,q);
 
 	complex<double>* corr=(complex<double>*)malloc(sizeof(complex<double>)*numlocs);
-	start=clock();
+        auto start = chrono::system_clock::now();
 	directsinc3d(ifl,numlocs,klocs_d1,klocs_d2,klocs_d3,q,corr,1e-14); 
-	cout<<"Direct calculation: "<<setprecision(6)<<(clock()-start)/(double) CLOCKS_PER_SEC<<" sec. \n";
+        chrono::duration<double> dur = chrono::system_clock::now() - start;
+        cout<<setprecision(3);
+	cout<<"Direct calculation: "<<dur.count()<<" sec. \n";
 
 	for(int a=0;a<nprec;a++)
 	{
 		pr=precisions[a];		
 
 		complex<double>* myout=(complex<double>*)malloc(sizeof(complex<double>)*numlocs);
-		start=clock();
+                start = chrono::system_clock::now();
 		s_err=sinc3d(ifl,numlocs,klocs_d1,klocs_d2,klocs_d3,q,pr,myout); 
-		cout<<"Runtime: "<<setprecision(6)<<(clock()-start)/(double) CLOCKS_PER_SEC<<" sec. ";
+                dur = chrono::system_clock::now() - start;
+                cout<<setprecision(3);
+		cout<<"Runtime: "<<dur.count()<<" sec. ";
 
 		err=getcerr(myout,corr,numlocs); //PUT BACK
 		cout<<"Requested precision: "<<pr<<" "; // Requested precision
@@ -54,18 +59,22 @@ int main()
 
 	cout<<"\nSincsq with "<<numlocs<<" samples:\n";
 	corr=(complex<double>*)malloc(sizeof(complex<double>)*numlocs);
-	start=clock();
-	directsincsq3d(ifl,numlocs,klocs_d1,klocs_d2,klocs_d3,q,corr,1e-14); 
-	cout<<"Direct calculation: "<<setprecision(6)<<(clock()-start)/(double) CLOCKS_PER_SEC<<" sec. \n";
+        start = chrono::system_clock::now();
+	directsincsq3d(ifl,numlocs,klocs_d1,klocs_d2,klocs_d3,q,corr,1e-14);
+        dur = chrono::system_clock::now() - start;
+        cout<<setprecision(3);
+	cout<<"Direct calculation: "<<dur.count()<<" sec. \n";
 
 	for(int a=0;a<nprec;a++)
 	{
 		pr=precisions[a];
 
 		complex<double>* myout=(complex<double>*)malloc(sizeof(complex<double>)*numlocs);
-		start=clock();
+                start = chrono::system_clock::now();
 		s_err=sincsq3d(ifl,numlocs,klocs_d1,klocs_d2,klocs_d3,q,pr,myout); 
-		cout<<"Runtime: "<<setprecision(6)<<(clock()-start)/(double) CLOCKS_PER_SEC<<" sec. ";
+                dur = chrono::system_clock::now() - start;
+                cout<<setprecision(3);
+		cout<<"Runtime: "<<dur.count()<<" sec. ";
 
 		err=getcerr(myout,corr,numlocs);
 		cout<<"Requested precision: "<<pr<<" "; // Requested precision

@@ -1,15 +1,16 @@
 #include <iostream>
 #include <iomanip>
+#include <chrono>
 #include "sincutil.hpp"
 #include "directsinc.hpp"
 #include "sinctransform.hpp"
 
 int main()
 {
-	cout<<"---Testing 1D---\n\n";
+        cout<<"---Testing 1D---\n\n";
 	double precisions[]={1e-2, 1e-3, 1e-4, 1e-5, 1e-6, 1e-7, 1e-8, 1e-9, 1e-10, 1e-11, 1e-12};
         int nprec = 11;
-	double pr,err,start;
+	double pr,err;
 	double klb=-10;
 	double kub=10;
 	double qlb=-10;
@@ -25,18 +26,21 @@ int main()
 	randcarr(qlb,qub,numlocs,q);
 
 	complex<double>* corr=(complex<double>*)malloc(sizeof(complex<double>)*numlocs);
-	start=clock();
-	directsinc1d(ifl,numlocs,klocs,q,corr,1e-14); 
-	cout<<"Direct calculation: "<<setprecision(6)<<(clock()-start)/(double) CLOCKS_PER_SEC<<" sec. \n";
-
+        auto start = chrono::system_clock::now();
+	directsinc1d(ifl,numlocs,klocs,q,corr,1e-14);
+        chrono::duration<double> dur = chrono::system_clock::now() - start;
+        cout<<setprecision(3);
+	cout<<"Direct calculation: "<<dur.count()<<" sec. \n";
 	for(int a=0;a<nprec;a++)
 	{
 		pr=precisions[a];
 		complex<double>* myout=(complex<double>*)malloc(sizeof(complex<double>)*numlocs);
 
-		start=clock();
+                start = chrono::system_clock::now();
 		s_err=sinc1d(ifl,numlocs,klocs,q,pr,myout);
-		cout<<"Runtime: "<<setprecision(6)<<(clock()-start)/(double) CLOCKS_PER_SEC<<" sec. ";
+                dur = chrono::system_clock::now()-start;
+                cout<<setprecision(3);            // why needed?
+		cout<<"Runtime: "<<dur.count()<<" sec. ";
 
 		err=getcerr(myout,corr,numlocs);
 		cout<<"Requested precision: "<<pr<<" "; // Requested precision
@@ -48,9 +52,10 @@ int main()
 	cout<<"\nSincsq with "<<numlocs<<" samples:\n";
 
 	corr=(complex<double>*)malloc(sizeof(complex<double>)*numlocs);
-	start=clock();
+        start = chrono::system_clock::now();
 	directsincsq1d(ifl,numlocs,klocs,q,corr,1e-14);
-	cout<<"Direct calculation: "<<setprecision(6)<<(clock()-start)/(double) CLOCKS_PER_SEC<<" sec. \n";
+        dur = chrono::system_clock::now() - start;
+	cout<<"Direct calculation: "<<dur.count()<<" sec. \n";
 
 	for(int a=0;a<nprec;a++)
 	{
@@ -58,9 +63,11 @@ int main()
 
 		complex<double>* myout=(complex<double>*)malloc(sizeof(complex<double>)*numlocs);
 
-		start=clock();
-		s_err=sincsq1d(ifl,numlocs,klocs,q,pr,myout); 
-		cout<<"Runtime: "<<setprecision(6)<<(clock()-start)/(double) CLOCKS_PER_SEC<<" sec. ";
+		start = chrono::system_clock::now();
+		s_err=sincsq1d(ifl,numlocs,klocs,q,pr,myout);
+                dur = chrono::system_clock::now() - start;
+                cout<<setprecision(3);            // why needed?
+		cout<<"Runtime: "<<dur.count()<<" sec. ";
 
 		err=getcerr(myout,corr,numlocs);
 		cout<<"Requested precision: "<<pr<<" "; // Requested precision
