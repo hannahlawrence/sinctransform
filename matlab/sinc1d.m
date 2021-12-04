@@ -20,7 +20,7 @@ q=q(:);
 klocs=klocs(:);
 
 % more aggressive tolerance to compensate for repeated calls and quadrature
-newtol=max(tol/1000,1e-15);
+newtol=max(tol,1e-15);
 
 rkmax=max(bsxfun(@max,zeros(size(klocs)),abs(klocs)));
 rkmax=max(rkmax,max(bsxfun(@max,zeros(size(a1)),abs(a1))));
@@ -30,18 +30,22 @@ if ifl==1
     klocs=pi*klocs;
     a1=pi*a1;
 end
-rsamp=2.0; % increase to impose higher accuracy; will increase runtime
-nx=ceil(rsamp*round(rkmax+3)); 
 
 if isequal(mode,'legendre')
+    rsamp=2; % increase to impose higher accuracy; will increase runtime
+    nx=ceil(rsamp*round(rkmax+3)); 
     [xx,ww]=lgwt(nx,-1,1);
     h_at_xx=finufft1d3(klocs,q,-1,newtol,xx);
     % factor of 1/2 required for change of integration bounds
     wtrans=0.5*finufft1d3(xx,h_at_xx.*ww,1,newtol,a1);
 else
 
+rsamp=3; % increase to impose higher accuracy; will increase runtime
+nx=ceil(rsamp*round(rkmax+3)); 
 a=-1; b=1;
-e=21; % increase (up to 60) to impose higher accuracy; will increase runtime
+
+e=25; % increase (up to 60) to impose higher accuracy
+
 if mod(nx,2)~=0; nx=nx+1; end % ensure even so that 0 is a quadrature point
 n=nx; h=(b-a)/n; aind=e+1; bind=aind+n;
 load('newconstants.mat') % Precomputed corrections to trapezoidal rule
@@ -80,30 +84,31 @@ end
 if isreal(q)
     wtrans=real(wtrans);
 end
+wtrans=wtrans(:);
 end
 
-function test_sinc1d
-n=1000; ifl=1;
+function test_sinc1d % run: compare to C++ errors on same conditions??
+n=400; ifl=1;
+numeval=n;
 klocs=(-10)+(20*rand(n,1));
-q=complex(rand(1,n)*10,10*rand(1,n));
-a1=100*rand(size(klocs));
-tic;correct_wtrans=slowsinc1d(ifl,a1,klocs,q);t3=toc;
+q=complex(-10+rand(1,n)*20,-10+20*rand(1,n));
+%a1=1000*rand(size(klocs));
+a1=-10+20*rand(size(klocs));
+tic;correct_wtrans=superslowsinc1d(ifl,a1(1:numeval),klocs,q);t3=toc;
 precisions=[1e-2 1e-3 1e-4 1e-5 1e-6 1e-7 1e-8 1e-9 1e-10 1e-11 1e-12 1e-13 1e-14 1e-15];
 for p=1:length(precisions)
     pr=precisions(p);
     tic;my_wtrans= sinc1d(ifl,a1,klocs,q,pr,'legendre');t1=toc;
     tic;my_wtrans_new=sinc1d(ifl,a1,klocs,q,pr,'trap');t2=toc;
-    if(size(correct_wtrans,1)~=size(my_wtrans,1))
-        correct_wtrans=correct_wtrans.';
-    end
-    err=norm(correct_wtrans-my_wtrans,2);
-    err2=norm(correct_wtrans-my_wtrans_new,2);
+    err=norm(correct_wtrans-my_wtrans(1:numeval),2)/norm(correct_wtrans,2);
+    err2=norm(correct_wtrans-my_wtrans_new(1:numeval),2)/norm(correct_wtrans,2);
     fprintf("Requested: %g Error (Leg): %g (Trap): %g\n", pr, err,err2);
     fprintf("              Time  (Leg): %g s (Trap): %g s (Direct): %g s\n",t1,t2,t3);
 end
 end
 
-function correct_wtrans=slowsinc1d(ifl,a1,klocs,q)  % wrong????
+function correct_wtrans=slowsinc1d(ifl,a1,klocs,q) 
+    q=q(:).';
     [a,b]=ndgrid(a1,klocs);
     if ifl==1
         sincmat=sin(pi*(a-b))./(pi*(a-b));
@@ -117,6 +122,7 @@ end
 function correct=superslowsinc1d(ifl,a1,klocs_d1,q)
 % Alternative brute force calculation; even slower
 % May be substituted in timing tests
+    a1=a1(:);
     results=zeros(size(a1)); 
     for ind=1:length(results)
         sm=0;

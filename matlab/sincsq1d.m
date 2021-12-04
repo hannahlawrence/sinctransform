@@ -14,19 +14,24 @@ if(nargin<1), test_sincsq1d; return; end
 % q = sample strengths
 % tol = requested precision
 
+% ensure vector inputs are correct size
+q=q(:).';
+klocs=klocs(:);
+
 rkmax=max(bsxfun(@max,zeros(size(klocs)),abs(klocs)));
 rkmax=max(rkmax,max(bsxfun(@max,zeros(size(a1)),abs(a1))));
 
 if ifl==1
     rkmax=pi*rkmax;
     klocs=pi*klocs;
+    a1=pi*a1;
 end
 
-newtol=max(tol/1000,1e-16);
-rsamp=2; % increase to impose higher accuracy; will increase runtime
-nx=ceil(rsamp*round(rkmax+3));
+newtol=max(tol,1e-16);
 
 if isequal(mode,'legendre')
+    rsamp=2; % increase to impose higher accuracy; will increase runtime
+    nx=ceil(rsamp*round(rkmax+3));
     [xx_pre,ww_pre]=lgwt(nx,-1,1);
     % quadrature points and weights to cover [-2,2]
     xx=vertcat((xx_pre-1),(xx_pre+1));
@@ -40,8 +45,10 @@ if isequal(mode,'legendre')
     wtrans=.25*finufft1d3(xx,h_at_xx.*ww.*trianglevec,1,newtol,a1);
 else
 
+rsamp=3; % increase to impose higher accuracy; will increase runtime
+nx=ceil(rsamp*round(rkmax+3));
 a=-2; b=0;
-e=21; % increase (up to 60) to impose higher accuracy; will increase runtime
+e=25; % increase (up to 60) to impose higher accuracy
 if mod(nx,2)~=0; nx=nx+1; end % ensure even so that 0 is a quadrature point
 n=nx; h=(b-a)/n;
 xx=a-(e*h):h:b+(n+e)*h; xx=xx(:);
@@ -105,21 +112,23 @@ end
 if isreal(q)
     wtrans=real(wtrans);
 end
+wtrans=wtrans(:);
 end
 
 function test_sincsq1d
-n=1000; ifl=0;
-klocs=rand(n,1)*20;
+n=10000; ifl=1;
+numeval=1000;
+klocs=rand(n,1)*200;
 a1=rand(size(klocs));
 q=complex(rand(1,n)*30,rand(1,n)*30);
-tic;correct_wtrans=slowsincsq1d(ifl,a1,klocs,q);t3=toc;
+tic;correct_wtrans=superslowsincsq1d(ifl,a1(1:numeval),klocs,q);t3=toc;
 precisions=[1e-2 1e-3 1e-4 1e-5 1e-6 1e-7 1e-8 1e-9 1e-10 1e-11 1e-12 1e-13 1e-14 1e-15];
 for p=1:length(precisions)
     pr=precisions(p);
     tic;my_wtrans=sincsq1d(ifl,a1,klocs,q,pr,'legendre');t1=toc;
     tic;my_wtrans_new=sincsq1d(ifl,a1,klocs,q,pr,'trap');t2=toc;
-    err=norm(correct_wtrans-my_wtrans,2);
-    err2=norm(correct_wtrans-my_wtrans_new,2);
+    err=norm(correct_wtrans-my_wtrans(1:numeval),2)/norm(correct_wtrans,2);
+    err2=norm(correct_wtrans-my_wtrans_new(1:numeval),2)/norm(correct_wtrans,2);
     fprintf("Requested: %g Error (Leg): %g (Trap): %g\n", pr, err,err2);
     fprintf("              Time  (Leg): %g s (Trap): %g s (Direct): %g s\n",t1,t2,t3);
 end

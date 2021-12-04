@@ -1,11 +1,11 @@
 Overview
 =========================================
 
-This is a C++ package_ to compute the sinc and sinc-squared transforms (based on [1]), defined as follows. Consider :math:`m` points in :math:`d` dimensional space, :math:`\mathbf{k_1},...,\mathbf{k_m} \in \mathbf{R}^d`, with weights :math:`q_1,...,q_m \in \mathbf{C}`. The task is to compute
+This is a C++ package_ to compute the sinc and sinc-squared transforms (based on [1]), defined as follows. Consider :math:`2m` points in :math:`d` dimensional space, :math:`\mathbf{a_1},...,\mathbf{a_m},\mathbf{k_1},...,\mathbf{k_m} \in \mathbf{R}^d`, with weights :math:`q_1,...,q_m \in \mathbf{C}`. The task is to compute
 
 .. math::
 
-	\sum_{j=1}^m q_j\text{sinc}(\mathbf{k_i}-\mathbf{k_j}) \text{  or  } \sum_{j=1}^m q_j\text{sinc}^{2}(\mathbf{k_i}-\mathbf{k_j})   \qquad \mbox{ for all } i=1,\ldots,m
+	\sum_{j=1}^m q_j\text{sinc}(\mathbf{a_i}-\mathbf{k_j}) \text{  or  } \sum_{j=1}^m q_j\text{sinc}^{2}(\mathbf{a_i}-\mathbf{k_j})   \qquad \mbox{ for all } i=1,\ldots,m
 
 .. _package: https://github.com/hannahlawrence/sinctransform
 

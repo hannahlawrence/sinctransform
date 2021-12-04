@@ -60,6 +60,13 @@ Matlab code (not C++ wrappers) for sinc transform:
 	sincsq2d.m
 	sincsq3d.m
 
+Matlab file containing precomputed constants for trapezoidal constants:
+
+.. code::
+
+	newconstants.mat
+
+
 Matlab to compute Gauss-Legendre nodes and weights, and to generate a 3d Shepp-Logan phantom (credit to Greg von Winckel and Matthias Schabel, respectively; see licenses):
 
 .. code::

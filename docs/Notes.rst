@@ -11,6 +11,6 @@ The code presented here scales much better than direct calculation (one can expe
 
 Precision
 ----------
-The requested precision is not guaranteed, so it may be worth running a few test cases in the same regime (size and scale) as the intended application to pin down the optimal input precision.
+The requested precision is not guaranteed, so it may be worth running a few test cases in the same regime (size and scale) as the intended application to pin down the optimal input precision. When necessary, it is also possible to change some of the default parameters, depending on choice of quadrature, to achieve better precision; see the :ref:`Quadrature` page for details.
 
 

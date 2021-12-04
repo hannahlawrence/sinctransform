@@ -18,7 +18,13 @@ if(nargin<1), test_sinc3d; return; end
 % q = sample strengths
 % tol = requested precision
 
-newtol=max(tol/1000,1e-16);
+% ensure vector inputs are correct size
+q=q(:).';
+klocs_d1=klocs_d1(:);
+klocs_d2=klocs_d2(:);
+klocs_d3=klocs_d3(:);
+
+newtol=max(tol,1e-16);
 
 rkmaxx=max(bsxfun(@max,zeros(size(klocs_d1)),abs(klocs_d1)));
 rkmaxx=max(rkmaxx,max(bsxfun(@max,zeros(size(a1)),abs(a1))));
@@ -38,7 +44,7 @@ if ifl==1
     a2=pi*a2;
     a3=pi*a3;
 end
-rsamp=2; % increase to impose higher accuracy; will increase runtime
+rsamp=3; % increase to impose higher accuracy; will increase runtime
 nx=ceil(rsamp*round(rkmaxx+3)); 
 ny=ceil(rsamp*round(rkmaxy+3));
 nz=ceil(rsamp*round(rkmaxz+3));
@@ -58,7 +64,8 @@ if isequal(mode,'legendre')
 else
 
 a=-1; b=1;
-e=21; % increase (up to 60) to impose higher accuracy; will increase runtime
+%e=min(round(21+(-1*log10(newtol)-2)*25/14),60); % increase (up to 60) to impose higher accuracy; will increase runtime
+e=25; % increase (up to 60) to impose higher accuracy
 load('newconstants.mat'); 
 constants=constantcell{e};
 
@@ -150,6 +157,13 @@ translationy=((-1*DU1y)*actual_unif_spacey)+Ly;
 translationz=((-1*DU1z)*actual_unif_spacez)+Lz;
 temp=finufft3d2(a1*actual_unif_spacex,a2*actual_unif_spacey,a3*actual_unif_spacez,1,newtol,reshape(h_at_xxyyzz.*allww,msx,msy,msz));
 wtrans=(1/8)*exp(1i*(translationx*a1+translationy*a2+translationz*a3)).*temp;
+
+% For real inputs, only return real values. Otherwise, return complex
+if isreal(q)
+    wtrans=real(wtrans);
+end
+wtrans=wtrans(:);
+
 end
 
 % For real inputs, only return real values. Otherwise, return complex
@@ -160,28 +174,31 @@ end
 end
 
 function test_sinc3d
-n=5; ifl=1;
+n=10000; ifl=1;
+numeval=100;
 precisions=[1e-2 1e-3 1e-4 1e-5 1e-6 1e-7 1e-8 1e-9 1e-10 1e-11 1e-12 1e-13 1e-14 1e-15];
-klocs_d1=-50+(100*rand(n,1));
+precisions=precisions(1:3:length(precisions));
+klocs_d1=-10+(50*rand(n,1));
 klocs_d2=-10+(20*rand(n,1));
 klocs_d3=-10+(20*rand(n,1));
 q=complex(rand(1,n)*30,rand(1,n)*30); 
 a1=-10+(20*rand(n,1));
 a2=-10+(20*rand(n,1));
 a3=-10+(20*rand(n,1));
-tic;correct=slowsinc3d(ifl,a1,a2,a3,klocs_d1,klocs_d2,klocs_d3,q);t3=toc;
+tic;correct=superslowsinc3d(ifl,a1(1:numeval),a2(1:numeval),a3(1:numeval),klocs_d1,klocs_d2,klocs_d3,q);t3=toc;
 for p=1:length(precisions)
     pr=precisions(p);
     tic;myresult=sinc3d(ifl,a1,a2,a3,klocs_d1,klocs_d2,klocs_d3,q,pr,'legendre');t1=toc;
     tic;myresult2=sinc3d(ifl,a1,a2,a3,klocs_d1,klocs_d2,klocs_d3,q,pr,'trap');t2=toc;
-    err1=norm(correct-myresult,2);
-    err2=norm(correct-myresult2,2);
+    err1=norm(correct-myresult(1:numeval),2)/norm(correct,2);
+    err2=norm(correct-myresult2(1:numeval),2)/norm(correct,2);
     fprintf("Requested: %g Error (Leg): %g (Trap): %g\n", pr, err1,err2);
     fprintf("              Time  (Leg): %g s (Trap): %g s (Direct): %g s\n",t1,t2,t3);
 end
 end
 
 function correct=slowsinc3d(ifl,a1,a2,a3,klocs_d1,klocs_d2,klocs_d3,q)
+    q=q(:).';
     [a1,b1]=ndgrid(a1,klocs_d1);
     [a2,b2]=ndgrid(a2,klocs_d2);
     [a3,b3]=ndgrid(a3,klocs_d3);

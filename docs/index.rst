@@ -16,6 +16,7 @@ Sinc Transform Documentation
    Examples
    Tests
    Derivation
+   Quadrature
    Matlab
    Notes
    Citations 

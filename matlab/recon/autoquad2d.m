@@ -8,4 +8,4 @@ function wvec=autoquad2d(klocs_d1,klocs_d2)
 
 ifl=1;
 q=ones(size(klocs_d1));
-wvec=1./sincsq2d(ifl,klocs_d1,klocs_d2,q,1e-16);
+wvec=1./sincsq2d(ifl,klocs_d1,klocs_d2,klocs_d1,klocs_d2,q,1e-5,'legendre');

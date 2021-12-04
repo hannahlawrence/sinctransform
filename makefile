@@ -1,5 +1,5 @@
 # Makefile for sinc transform programs.
-# By Hannah Lawrence. (C) Simons Foundation 2018.
+# By Hannah Lawrence. (C) Simons Foundation 2018--present
 # Edits by Alex Barnett.
 #
 # User: please edit the FLAGS and PATHS below for your system.
@@ -16,14 +16,15 @@ CXX=g++
 CURRENT=.
 CURRENT_FLAG=-I$(CURRENT)
 
-# point to your fftw library directory (here is the usual linux one):
-FFTW=/usr/lib/x86_64-linux-gnu/
+# point to your fftw library directory (here is the usual linux one): /usr/lib/x86_64-linux-gnu/
+FFTW=/usr/local/lib
 FFTW_FLAG=-L$(FFTW)
 
 # point to the top of your finufft installation:  (can pass in FINUFFT env var too)
 FINUFFT?=/home/alex/numerics/finufft/
+#FINUFFT?=../finufft/
+#FINUFFT?=/Users/hannah/Documents/Flatiron18/newfinufft/finufft
 
-#FINUFFT_LIB_PATH=/lib/libfinufft.so
 FINUFFT_LIB_PATH=/lib-static/libfinufft.a
 
 FINUFFT_LIB=$(FINUFFT)$(FINUFFT_LIB_PATH)
@@ -34,9 +35,9 @@ FINUFFT_FLAGS=-lfftw3 -lfftw3_threads -lm -lgomp
 # if single-thread:
 #FINUFFT_FLAGS=-lfftw3 -lm
 
-#FLAGS=-std=c++11 -g -Wall
 # -fext-numeric-literals needed for 0+1i complex literals in gcc 5.4.0:
-FLAGS=-std=c++11 -g -Wall -fext-numeric-literals
+# -fext-numeric-literals
+FLAGS=-std=c++11 -g -Wall 
 
 EXAMPLE_DIR=examples
 TEST_DIR=tests
@@ -84,15 +85,15 @@ libsinc.a: $(SOURCE_DIR)/sinc1d.o $(SOURCE_DIR)/sinc2d.o $(SOURCE_DIR)/sinc3d.o 
 $(HELPER_DIR)/directsinc.o: $(HELPER_DIR)/directsinc.cpp $(HELPER_DIR)/sincutil.hpp
 	$(CXX) $(FLAGS) -o $(HELPER_DIR)/directsinc.o -c $(HELPER_DIR)/directsinc.cpp
 
-# Simple examples of usage in 1d, 2d, 3d
-$(EXAMPLE_DIR)/example1d: libsinc.a $(HELPER_DIR)/sincutil.o $(EXAMPLE_DIR)/example1d.cpp
-	$(CXX) $(FLAGS) -o $(EXAMPLE_DIR)/example1d $(HELPER_DIR)/sincutil.o $(EXAMPLE_DIR)/example1d.cpp libsinc.a $(CURRENT_FLAG)/$(HELPER_DIR) $(CURRENT_FLAG)/$(SOURCE_DIR) $(FINUFFT_LIB) $(FFTW_FLAG) $(FINUFFT_FLAGS)
+# Simple examples of usage in 1d, 2d, 3d. changed 1d to have direct!!
+$(EXAMPLE_DIR)/example1d: libsinc.a $(HELPER_DIR)/sincutil.o $(EXAMPLE_DIR)/example1d.cpp $(HELPER_DIR)/directsinc.o
+	$(CXX) $(FLAGS) -o $(EXAMPLE_DIR)/example1d $(HELPER_DIR)/sincutil.o $(HELPER_DIR)/directsinc.o  $(EXAMPLE_DIR)/example1d.cpp libsinc.a $(CURRENT_FLAG)/$(HELPER_DIR) $(CURRENT_FLAG)/$(SOURCE_DIR) $(FINUFFT_LIB) $(FFTW_FLAG) $(FINUFFT_FLAGS)
 
-$(EXAMPLE_DIR)/example2d: libsinc.a $(HELPER_DIR)/sincutil.o $(EXAMPLE_DIR)/example2d.cpp
-	$(CXX) $(FLAGS) -o $(EXAMPLE_DIR)/example2d $(HELPER_DIR)/sincutil.o $(EXAMPLE_DIR)/example2d.cpp libsinc.a $(CURRENT_FLAG)/$(HELPER_DIR) $(CURRENT_FLAG)/$(SOURCE_DIR) $(FINUFFT_LIB) $(FFTW_FLAG) $(FINUFFT_FLAGS)
+$(EXAMPLE_DIR)/example2d: libsinc.a $(HELPER_DIR)/sincutil.o $(EXAMPLE_DIR)/example2d.cpp $(HELPER_DIR)/directsinc.o
+	$(CXX) $(FLAGS) -o $(EXAMPLE_DIR)/example2d $(HELPER_DIR)/sincutil.o $(HELPER_DIR)/directsinc.o $(EXAMPLE_DIR)/example2d.cpp libsinc.a $(CURRENT_FLAG)/$(HELPER_DIR) $(CURRENT_FLAG)/$(SOURCE_DIR) $(FINUFFT_LIB) $(FFTW_FLAG) $(FINUFFT_FLAGS)
 
-$(EXAMPLE_DIR)/example3d: libsinc.a $(HELPER_DIR)/sincutil.o $(EXAMPLE_DIR)/example3d.cpp
-	$(CXX) $(FLAGS) -o $(EXAMPLE_DIR)/example3d $(HELPER_DIR)/sincutil.o $(EXAMPLE_DIR)/example3d.cpp libsinc.a $(CURRENT_FLAG)/$(HELPER_DIR) $(CURRENT_FLAG)/$(SOURCE_DIR) $(FINUFFT_LIB) $(FFTW_FLAG) $(FINUFFT_FLAGS)
+$(EXAMPLE_DIR)/example3d: libsinc.a $(HELPER_DIR)/sincutil.o $(EXAMPLE_DIR)/example3d.cpp $(HELPER_DIR)/directsinc.o
+	$(CXX) $(FLAGS) -o $(EXAMPLE_DIR)/example3d $(HELPER_DIR)/sincutil.o $(HELPER_DIR)/directsinc.o $(EXAMPLE_DIR)/example3d.cpp libsinc.a $(CURRENT_FLAG)/$(HELPER_DIR) $(CURRENT_FLAG)/$(SOURCE_DIR) $(FINUFFT_LIB) $(FFTW_FLAG) $(FINUFFT_FLAGS)
 
 # Longer test functions using random inputs, over many requested precisions
 $(TEST_DIR)/test1d: libsinc.a $(HELPER_DIR)/sincutil.o $(HELPER_DIR)/directsinc.o $(TEST_DIR)/test1d.cpp 
