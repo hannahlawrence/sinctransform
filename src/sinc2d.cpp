@@ -116,7 +116,7 @@ int sinc2d(int ifl,int numlocs,double *a1_,double *a2_,double *klocs_d1_,double 
 		//h_at_xx will be complex
 		std::vector<complex <double>> h_at_xxyy(nx*ny);
 		int ier1=finufft2d3(numlocs,klocs_d1.data(),klocs_d2.data(),qc.data(),-1,newtol,nx*ny,allxx.data(),allyy.data(),h_at_xxyy.data(),opts);
-		if (ier1 != 0)
+		if (ier1 >1)
 		{
 			cout<<"Error: call 1 to finufft2d3 failed: "<<ier1<<"\n";
 			return ier1;
@@ -129,7 +129,7 @@ int sinc2d(int ifl,int numlocs,double *a1_,double *a2_,double *klocs_d1_,double 
 
 		std::vector<complex <double>> wtrans(numlocs);
 		int ier2=finufft2d3(nx*ny,allxx.data(),allyy.data(),weighted.data(),1,newtol,numlocs,a1.data(),a2.data(),wtrans.data(),opts);
-		if (ier2 != 0)
+		if (ier2>1)
 		{
 			cout<<"Error: call 2 to finufft2d3 failed: "<<ier2<<"\n";
 			return ier2;
@@ -262,7 +262,7 @@ int sinc2d(int ifl,int numlocs,double *a1_,double *a2_,double *klocs_d1_,double 
 		{
 			strengths[i]=q[i]*exp(icomp*((actual_unif_spacex*klocs_d1[i]*translationx)+(actual_unif_spacey*klocs_d2[i]*translationy))); 
 		}
-		int ier=finufft2d1(numlocs,newklocsx.data(),newklocsy.data(),strengths.data(),-1,newtol,msx,msy,h_at_xxyy.data(),opts);
+		finufft2d1(numlocs,newklocsx.data(),newklocsy.data(),strengths.data(),-1,newtol,msx,msy,h_at_xxyy.data(),opts);
 
 		translationx=(-1*DU1x)*actual_unif_spacex+Lx;
 		translationy=(-1*DU1y)*actual_unif_spacey+Ly;
@@ -286,7 +286,7 @@ int sinc2d(int ifl,int numlocs,double *a1_,double *a2_,double *klocs_d1_,double 
 			newa2[i]=a2[i]*actual_unif_spacey;
 		}
 		std::vector<complex<double>> temp(numlocs);
-		ier=finufft2d2(numlocs,newa1.data(),newa2.data(),temp.data(),1,newtol,msx,msy,newh_at_xxyy.data(),opts); 
+		finufft2d2(numlocs,newa1.data(),newa2.data(),temp.data(),1,newtol,msx,msy,newh_at_xxyy.data(),opts); 
 		//do exp thing
 		for (int i=0;i<numlocs;i++)
 		{
@@ -422,7 +422,7 @@ int sincsq2d(int ifl,int numlocs,double *a1_,double *a2_,double *klocs_d1_,doubl
 		for (int a=0;a<(4*nx*ny);a++)
 			h_at_xxyy[a]=0;
 		int ier1=finufft2d3(numlocs,klocs_d1.data(),klocs_d2.data(),qc.data(),-1,newtol,4*nx*ny,allxx.data(),allyy.data(),h_at_xxyy.data(),opts);
-		if (ier1 != 0)
+		if (ier1>1)
 		{
 			cout<<"Error: call 1 to finufft2d3 failed: "<<ier1<<"\n";
 			return ier1;
@@ -434,7 +434,7 @@ int sincsq2d(int ifl,int numlocs,double *a1_,double *a2_,double *klocs_d1_,doubl
 		}
 		std::vector<complex <double>> wtrans(numlocs);
 		int ier2=finufft2d3(4*nx*ny,allxx.data(),allyy.data(),weighted.data(),1,newtol,numlocs,a1.data(),a2.data(),wtrans.data(),opts);
-		if (ier2 != 0)
+		if (ier2>1)
 		{
 			cout<<"Error: call 2 to finufft2d3 failed: "<<ier2<<"\n";
 			return ier2;
@@ -621,7 +621,7 @@ int sincsq2d(int ifl,int numlocs,double *a1_,double *a2_,double *klocs_d1_,doubl
 		{
 			strengths[i]=q[i]*exp(icomp*((actual_unif_spacex*klocs_d1[i]*translationx)+(actual_unif_spacey*klocs_d2[i]*translationy))); 
 		}
-		int ier=finufft2d1(numlocs,newklocsx.data(),newklocsy.data(),strengths.data(),-1,newtol,msx,msy,h_at_xxyy.data(),opts);
+		finufft2d1(numlocs,newklocsx.data(),newklocsy.data(),strengths.data(),-1,newtol,msx,msy,h_at_xxyy.data(),opts);
 
 		translationx=(-1*DU1x)*actual_unif_spacex+Lx;
 		translationy=(-1*DU1y)*actual_unif_spacey+Ly;
@@ -646,7 +646,7 @@ int sincsq2d(int ifl,int numlocs,double *a1_,double *a2_,double *klocs_d1_,doubl
 			newa2[i]=a2[i]*actual_unif_spacey;
 		}
 		std::vector<complex<double>> temp(numlocs);
-		ier=finufft2d2(numlocs,newa1.data(),newa2.data(),temp.data(),1,newtol,msx,msy,newh_at_xxyy.data(),opts); 
+		finufft2d2(numlocs,newa1.data(),newa2.data(),temp.data(),1,newtol,msx,msy,newh_at_xxyy.data(),opts); 
 		//do exp thing
 		for (int i=0;i<numlocs;i++)
 		{
