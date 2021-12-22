@@ -129,16 +129,17 @@ int sinc3d(int ifl,int numlocs,double *a1_,double *a2_,double *a3_,double *klocs
 				}
 			}
 		}
-		nufft_opts opts; finufft_default_opts(&opts);
+		nufft_opts* opts; opts = new nufft_opts;
+                finufft_default_opts(opts);
 		if (newtol<1e-9)
 		{
-			opts.upsampfac=2;
+			opts->upsampfac=2;
 		}
 
 		//h_at_xx will be complex
 		std::vector<complex <double>> h_at_xxyyzz(nx*ny*nz);
 		int ier1=finufft3d3(numlocs,klocs_d1.data(),klocs_d2.data(),klocs_d3.data(),qc.data(),-1,newtol,nx*ny*nz,allxx.data(),allyy.data(),allzz.data(),h_at_xxyyzz.data(),opts);
-		if (ier1 != 0)
+		if (ier1>1)
 		{
 			cout<<"Error: call 1 to finufft2d3 failed: "<<ier1<<"\n";
 			return ier1;
@@ -150,7 +151,7 @@ int sinc3d(int ifl,int numlocs,double *a1_,double *a2_,double *a3_,double *klocs
 		}
 		std::vector<complex <double>> wtrans(numlocs);
 		int ier2=finufft3d3(nx*ny*nz,allxx.data(),allyy.data(),allzz.data(),weighted.data(),1,newtol,numlocs,a1.data(),a2.data(),a3.data(),wtrans.data(),opts);
-		if (ier2 != 0)
+		if (ier2>1)
 		{
 			cout<<"Error: call 2 to finufft2d3 failed: "<<ier2<<"\n";
 			return ier2;
@@ -302,10 +303,11 @@ int sinc3d(int ifl,int numlocs,double *a1_,double *a2_,double *a3_,double *klocs
 		double translationz=(DU1z-(Lz/actual_unif_spacez));
 
 		// Make call to finufft1d1
-		nufft_opts opts; finufft_default_opts(&opts);
+		nufft_opts* opts; opts = new nufft_opts;
+                finufft_default_opts(opts);
 		if (newtol<1e-9)
 		{
-			opts.upsampfac=2;
+			opts->upsampfac=2;
 		}
 
 		std::vector<complex<double>> h_at_xxyyzz(msx*msy*msz); // length?
@@ -332,7 +334,7 @@ int sinc3d(int ifl,int numlocs,double *a1_,double *a2_,double *a3_,double *klocs
 		{
 			strengths[i]=q[i]*exp(icomp*((actual_unif_spacex*klocs_d1[i]*translationx)+(actual_unif_spacey*klocs_d2[i]*translationy)+(actual_unif_spacez*klocs_d3[i]*translationz))); 
 		}
-		int ier=finufft3d1(numlocs,newklocsx.data(),newklocsy.data(),newklocsz.data(),strengths.data(),-1,newtol,msx,msy,msz,h_at_xxyyzz.data(),opts);
+		finufft3d1(numlocs,newklocsx.data(),newklocsy.data(),newklocsz.data(),strengths.data(),-1,newtol,msx,msy,msz,h_at_xxyyzz.data(),opts);
 
 		translationx=(-1*DU1x)*actual_unif_spacex+Lx;
 		translationy=(-1*DU1y)*actual_unif_spacey+Ly;
@@ -362,7 +364,7 @@ int sinc3d(int ifl,int numlocs,double *a1_,double *a2_,double *a3_,double *klocs
 			newa3[i]=a3[i]*actual_unif_spacez;
 		}
 		std::vector<complex<double>> temp(numlocs);
-		ier=finufft3d2(numlocs,newa1.data(),newa2.data(),newa3.data(),temp.data(),1,newtol,msx,msy,msz,newh_at_xxyyzz.data(),opts); 
+		finufft3d2(numlocs,newa1.data(),newa2.data(),newa3.data(),temp.data(),1,newtol,msx,msy,msz,newh_at_xxyyzz.data(),opts); 
 		//do exp thing
 		for (int i=0;i<numlocs;i++)
 		{
@@ -521,11 +523,12 @@ int sincsq3d(int ifl,int numlocs,double *a1_,double *a2_,double *a3_,double *klo
 			}
 		}
 
-		nufft_opts opts; finufft_default_opts(&opts);
+                nufft_opts* opts = new nufft_opts;
+                finufft_default_opts(opts);
 		//h_at_xx will be complex
 		std::vector<complex <double>> h_at_xxyyzz(8*nx*ny*nz);
 		int ier1=finufft3d3(numlocs,klocs_d1.data(),klocs_d2.data(),klocs_d3.data(),qc.data(),-1,newtol,8*nx*ny*nz,allxx.data(),allyy.data(),allzz.data(),h_at_xxyyzz.data(),opts);
-		if (ier1 != 0)
+		if (ier1>1)
 		{
 			cout<<"Error: call 1 to finufft2d3 failed: "<<ier1<<"\n";
 			return ier1;
@@ -537,7 +540,7 @@ int sincsq3d(int ifl,int numlocs,double *a1_,double *a2_,double *a3_,double *klo
 		}
 		std::vector<complex <double>> wtrans(numlocs);
 		int ier2=finufft3d3(8*nx*ny*nz,allxx.data(),allyy.data(),allzz.data(),weighted.data(),1,newtol,numlocs,a1.data(),a2.data(),a3.data(),wtrans.data(),opts);
-		if (ier2 != 0)
+		if (ier2>1)
 		{
 			cout<<"Error: call 2 to finufft2d3 failed: "<<ier2<<"\n";
 			return ier2;
@@ -773,7 +776,8 @@ int sincsq3d(int ifl,int numlocs,double *a1_,double *a2_,double *a3_,double *klo
 		double translationz=(DU1z-(Lz/actual_unif_spacez));
 
 		// Make call to finufft1d1
-		nufft_opts opts; finufft_default_opts(&opts);
+		nufft_opts* opts; opts = new nufft_opts;
+                finufft_default_opts(opts);
 
 		std::vector<complex<double>> h_at_xxyyzz(msx*msy*msz); 
 		complex<double> icomp=-1;
@@ -798,7 +802,7 @@ int sincsq3d(int ifl,int numlocs,double *a1_,double *a2_,double *a3_,double *klo
 		{
 			strengths[i]=q[i]*exp(icomp*((actual_unif_spacex*klocs_d1[i]*translationx)+(actual_unif_spacey*klocs_d2[i]*translationy)+(actual_unif_spacez*klocs_d3[i]*translationz))); 
 		}
-		int ier=finufft3d1(numlocs,newklocsx.data(),newklocsy.data(),newklocsz.data(),strengths.data(),-1,newtol,msx,msy,msz,h_at_xxyyzz.data(),opts);
+		finufft3d1(numlocs,newklocsx.data(),newklocsy.data(),newklocsz.data(),strengths.data(),-1,newtol,msx,msy,msz,h_at_xxyyzz.data(),opts);
 
 		translationx=(-1*DU1x)*actual_unif_spacex+Lx;
 		translationy=(-1*DU1y)*actual_unif_spacey+Ly;
@@ -829,7 +833,7 @@ int sincsq3d(int ifl,int numlocs,double *a1_,double *a2_,double *a3_,double *klo
 			newa3[i]=a3[i]*actual_unif_spacez;
 		}
 		std::vector<complex<double>> temp(numlocs);
-		ier=finufft3d2(numlocs,newa1.data(),newa2.data(),newa3.data(),temp.data(),1,newtol,msx,msy,msz,newh_at_xxyyzz.data(),opts); 
+		finufft3d2(numlocs,newa1.data(),newa2.data(),newa3.data(),temp.data(),1,newtol,msx,msy,msz,newh_at_xxyyzz.data(),opts); 
 		//do exp thing
 		for (int i=0;i<numlocs;i++)
 		{

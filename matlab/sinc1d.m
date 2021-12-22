@@ -20,7 +20,7 @@ q=q(:);
 klocs=klocs(:);
 
 % more aggressive tolerance to compensate for repeated calls and quadrature
-newtol=max(tol,1e-16);
+newtol=max(tol,1e-15);
 
 rkmax=max(bsxfun(@max,zeros(size(klocs)),abs(klocs)));
 rkmax=max(rkmax,max(bsxfun(@max,zeros(size(a1)),abs(a1))));

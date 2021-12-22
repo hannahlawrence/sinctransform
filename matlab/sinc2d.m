@@ -35,9 +35,7 @@ if ifl==1
     a2=pi*a2;
 end
 
-
-newtol=max(tol,1e-16);
-
+newtol=max(tol,1e-15);
 if isequal(mode,'legendre')
     rsamp=2; % increase to impose higher accuracy; will increase runtime
     nx=ceil(rsamp*round(rkmaxx+3));
@@ -50,8 +48,9 @@ if isequal(mode,'legendre')
     allyy=d(:);
     [e,f]=ndgrid(wwx,wwy);
     allww=e(:).*f(:);
-    h_at_xxyy=finufft2d3(klocs_d1,klocs_d2,q,-1,newtol,allxx,allyy);
-    wtrans=0.25*finufft2d3(allxx,allyy,h_at_xxyy.*allww,1,newtol,a1,a2);
+    o.upsampfac=2.0; %1.25;
+    h_at_xxyy=finufft2d3(klocs_d1,klocs_d2,q,-1,newtol,allxx,allyy,o);
+    wtrans=0.25*finufft2d3(allxx,allyy,h_at_xxyy.*allww,1,newtol,a1,a2,o);
 else
 rsamp=3; % increase to impose higher accuracy; will increase runtime
 nx=ceil(rsamp*round(rkmaxx+3));
@@ -137,8 +136,8 @@ n=1000; ifl=1;
 numeval=100;
 klocs_d1=-10+(20*rand(n,1));
 klocs_d2=-10+(20*rand(n,1));
-a1=-10+(200*rand(n,1));
-a2=-10+(200*rand(n,1));
+a1=-10+(20*rand(n,1));  % 200
+a2=-10+(20*rand(n,1));
 q=complex(rand(1,n)*30,rand(1,n)*30);
 tic;correct=superslowsinc2d(ifl,a1(1:numeval),a2(1:numeval),klocs_d1,klocs_d2,q); tt3=toc;
 precisions=[1e-2 1e-3 1e-4 1e-5 1e-6 1e-7 1e-8 1e-9 1e-10 1e-11 1e-12 1e-13 1e-14 1e-15];

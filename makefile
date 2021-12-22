@@ -1,5 +1,5 @@
 # Makefile for sinc transform programs.
-# By Hannah Lawrence. (C) Simons Foundation 2018.
+# By Hannah Lawrence. (C) Simons Foundation 2018--present
 # Edits by Alex Barnett.
 #
 # User: please edit the FLAGS and PATHS below for your system.
@@ -20,19 +20,20 @@ CURRENT_FLAG=-I$(CURRENT)
 FFTW=/usr/local/lib
 FFTW_FLAG=-L$(FFTW)
 
-# point to the top of your finufft installation:
-#FINUFFT=../finufft/
-FINUFFT=/Users/hannah/Documents/Flatiron18/newfinufft/finufft
+# point to the top of your finufft installation:  (can pass in FINUFFT env var too)
+FINUFFT?=/home/alex/numerics/finufft/
+#FINUFFT?=../finufft/
+#FINUFFT?=/Users/hannah/Documents/Flatiron18/newfinufft/finufft
 
 FINUFFT_LIB_PATH=/lib-static/libfinufft.a
 
 FINUFFT_LIB=$(FINUFFT)$(FINUFFT_LIB_PATH)
-FINUFFT_HEADER_FLAG=-I$(FINUFFT)/src/
-FINUFFT_HEADER=$(FINUFFT)/src/finufft.h
+FINUFFT_HEADER_FLAG=-I$(FINUFFT)/include
+FINUFFT_HEADER=$(FINUFFT)/include/finufft.h
 # if multi-thread:
-# FINUFFT_FLAGS=-lfftw3 -lfftw3_threads -lm -lgomp
+FINUFFT_FLAGS=-lfftw3 -lfftw3_threads -lm -lgomp
 # if single-thread:
-FINUFFT_FLAGS=-lfftw3 -lm
+#FINUFFT_FLAGS=-lfftw3 -lm
 
 # -fext-numeric-literals needed for 0+1i complex literals in gcc 5.4.0:
 # -fext-numeric-literals
